@@ -1,6 +1,5 @@
 import jinja2
 import json
-from pprint import pprint
 import argparse
 from marshmallow import Schema, fields
 
@@ -15,13 +14,9 @@ templateEnv = jinja2.Environment(loader=templateLoader, trim_blocks=True, lstrip
 
 def _write_template(data, template, output_filename):
     with open(output_filename, "w") as f:
-        print(type(data))
-        print(data)
-
         template = template.render(**data)
-
-        print(template)
         f.write(template)
+        print(f"\nSuccessfully Generated Template: '{ output_filename }'")
 
 
 def _process_ios_base_config(data, out_filename):
@@ -53,9 +48,9 @@ def _process_bgp_session(data, out_filename):
 
 
 def _open_file(file_name):
-    print(file_name)
     with open(file_name, "r") as json_file:
         data = json.load(json_file)
+        print(f"Successfully Read JSON Data: '{file_name}'")
         return data
 
 
@@ -88,24 +83,22 @@ def main():
 
     if args.te_tunnels:
         input_filename = args.te_tunnels
-
         data = _open_file(input_filename)
-
         _process_ios_te_tunnels(data, output_filename)
+        exit(0)
 
     if args.bgp_policy:
         input_filename = args.bgp_policy
-
         data = _open_file(input_filename)
-
         _process_bgp_policy(data, output_filename)
+        exit(0)
 
     if args.bgp_session:
         input_filename = args.bgp_session
-
         data = _open_file(input_filename)
-
         _process_bgp_session(data, output_filename)
+        exit(0)
+
 
     print(parser.print_help())
 
