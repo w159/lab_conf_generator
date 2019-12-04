@@ -1,14 +1,19 @@
 hostname BITS-TEST
 !
 no ip domain-lookup
-!interface loopback0
- ip address 10.0.0.1 255.255.255.255!interface 
+!
+interface loopback0
+ ip address 10.0.0.1 255.255.255.255
+!
+interface GigabitEthernet1
  description Link to CSR2-PE
  ip address 10.1.2.1 255.255.255.252
-!interface 
+!
+interface GigabitEthernet2
  description Link to CSR3-PE
  ip address 10.1.3.1 255.255.255.252
-!line con 0
+!
+line con 0
  exec-timeout 0 0
  logging synchronous
  stopbits 1

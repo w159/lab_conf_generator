@@ -2,8 +2,6 @@ import unittest
 
 from lcg.constants import MAP_TEMPLATE_FILES
 from lcg.controllers.config_gen import ConfigGenerator
-from lcg.models.ios_base_node import IOSNodeSchema
-from lcg.models.te_tunnels import IOSExplicitPath, IOSTETunnelSchema
 
 
 class MyTestCase(unittest.TestCase):
@@ -32,13 +30,6 @@ class MyTestCase(unittest.TestCase):
             ]
         }
 
-        schema = IOSNodeSchema()
-
-        validation_results = schema.validate(data_ios_base_node)
-        validation_count = len(validation_results.items())
-        if validation_count > 0:
-            print(f'Validation Failled:\n {validation_results}')
-
         config_generator = ConfigGenerator()
         config_generator.set_template("ios_base_node")
         config_generator.set_output_file("../output/test_ios_base_node.txt")
@@ -66,6 +57,8 @@ class MyTestCase(unittest.TestCase):
                                            output_file="../output/test_ios_bgp_policy.txt")
 
         config_generator.write()
+
+        print(config_generator.to_stdout())
 
 
 if __name__ == '__main__':

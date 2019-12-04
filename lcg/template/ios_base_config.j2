@@ -1,14 +1,18 @@
 hostname {{ hostname }}
 !
 no ip domain-lookup
-!{% if management %}
+!
+{% if management %}
 interface {{ management.link_id }}
- ip address {{ management.ip_address }} {{ management.netmask }}{% endif %}
-!{% for interface in interfaces %}
-interface {{ interface.id }}
+ ip address {{ management.ip_address }} {{ management.netmask }}
+{% endif %}
+!
+{% for interface in interfaces %}
+interface {{ interface.link_id }}
  description {{ interface.description }}
  ip address {{ interface.ip_address }} {{ interface.netmask }}
-!{% endfor %}
+!
+{% endfor %}
 line con 0
  exec-timeout 0 0
  logging synchronous
