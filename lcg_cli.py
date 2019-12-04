@@ -11,6 +11,7 @@ def _process_ios_base_config(data, out_filename):
                                      facts=data
                                      )
         config_gen.write()
+        return config_gen
 
 
 def _process_ios_te_tunnels(data, out_filename):
@@ -54,6 +55,7 @@ def main():
     parser.add_argument("--bgp_policy", help="Generates BGP policy-template configurations")
     parser.add_argument("--bgp_session", help="Generates BGP session-template configurations")
     parser.add_argument("-o", help="Output File Name")
+    parser.add_argument("-v", "--verbose", help="Displays Data to STDOUT", action="store_true")
 
     args = parser.parse_args()
 
@@ -70,7 +72,11 @@ def main():
         input_filename = args.base_config
 
         data = _open_input_file(input_filename)
-        _process_ios_base_config(data, output_filename)
+        config_gen = _process_ios_base_config(data, output_filename)
+
+        if args.verbose:
+            print(config_gen.to_stdout())
+
         print(f"{data['hostname']} Configuration Generated: {output_filename}.")
         exit()
 
