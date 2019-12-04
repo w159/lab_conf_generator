@@ -1,15 +1,15 @@
 import json
 import jinja2
 
-from lcg.constants import MAP_TEMPLATE_FILES
+from lcg.constants import MAP_TEMPLATE_TYPES, TEMPLATE_SEARCH_PATHS
 
-templateLoader = jinja2.FileSystemLoader(searchpath="../lcg/template")
+templateLoader = jinja2.FileSystemLoader(searchpath=TEMPLATE_SEARCH_PATHS)
 templateEnv = jinja2.Environment(loader=templateLoader, trim_blocks=True, lstrip_blocks=True)
 
 
 class ConfigGenerator:
     def __init__(self, **kwargs):
-        self._template_opts = MAP_TEMPLATE_FILES.get(kwargs.get("template_file"))
+        self._template_opts = MAP_TEMPLATE_TYPES.get(kwargs.get("template_type"))
 
         if self._template_opts is None:
             self.template_file = None
@@ -32,10 +32,10 @@ class ConfigGenerator:
 
     def set_template(self, template_type):
 
-        self._template_opts = MAP_TEMPLATE_FILES.get(template_type, None)
+        self._template_opts = MAP_TEMPLATE_TYPES.get(template_type, None)
 
         if self._template_opts is None:
-            raise Exception(f"Invalid template type, select from:\n {list(MAP_TEMPLATE_FILES.keys())} ")
+            raise Exception(f"Invalid template type, select from:\n {list(MAP_TEMPLATE_TYPES.keys())} ")
 
         template_file = self._template_opts.get("template_file")
         self.template = _open_template(self._template_opts.get("template_file"))
@@ -70,7 +70,6 @@ class ConfigGenerator:
 
         if not self.facts:
             raise Exception("Class missing 'facts' name")
-
 
         data = self.template.render(**self.facts)
 

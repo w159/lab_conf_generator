@@ -16,6 +16,7 @@ class IOSManagementSchema(Schema):
 
 
 class IOSNodeSchema(Schema):
+    node_type = fields.Str()
     hostname = fields.Str()
     management = fields.Nested(IOSManagementSchema)
     interfaces = fields.List(fields.Nested(IOSInterfaceSchema))

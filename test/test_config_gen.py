@@ -1,8 +1,10 @@
 import unittest
 
-from lcg.constants import MAP_TEMPLATE_FILES
+from lcg.constants import MAP_TEMPLATE_TYPES
 from lcg.controllers.config_gen import ConfigGenerator
 
+import os
+# os.chdir("..")
 
 class MyTestCase(unittest.TestCase):
 
@@ -52,7 +54,7 @@ class MyTestCase(unittest.TestCase):
 
         # schema = IOSBGPPolicySchema()
 
-        config_generator = ConfigGenerator(template_file="ios_bgp_policy",
+        config_generator = ConfigGenerator(template_type="ios_bgp_policy",
                                            facts=data_ios_bgp_policy,
                                            output_file="../output/test_ios_bgp_policy.txt")
 

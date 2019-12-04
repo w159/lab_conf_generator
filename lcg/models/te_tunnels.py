@@ -9,7 +9,7 @@ class IOSTETunnelSchema(Schema):
     autoroute = fields.Bool(default=False)
 
 
-class IOSExplicitPath(Schema):
+class IOSExplicitPathSchema(Schema):
     name = fields.Str(required=True)
     next_hops = fields.List(fields.Str())
 
