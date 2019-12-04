@@ -1,6 +1,7 @@
 # Lab Configuration Generator
 
-This tool is used to generate configurations for CLI based Network devices.
+This tool is used to generate configurations for CLI based Network devices. The motivation for this tools came from the 
+need to rapibly generate Configurations for devices that i use in my Lab environment 
 
 **CLI Usage:**
 ```text
