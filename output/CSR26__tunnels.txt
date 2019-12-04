@@ -1,0 +1,29 @@
+ip explicit-path name LSP_R5_PRI
+ next-address 10.0.0.4 
+ next-address 10.0.0.16 
+ next-address 10.0.0.15 
+ next-address 10.0.0.5 
+ip explicit-path name LSP_R6_PRI
+ next-address 10.0.0.4 
+ next-address 10.0.0.3 
+ next-address 10.0.0.2 
+ next-address 10.0.0.6 
+!
+!
+interface tunnel 265
+ description TE Tunnel to R5
+ ip unnumbered lo0
+ tunnel mode mpls traffic-eng
+ tunnel destination 10.0.0.5
+ tunnel mpls traffic-eng autoroute announce
+ tunnel mode mpls traffic-eng
+ tunnel mpls traffic-eng path-option 10 explicit name LSP_R5_PRI
+!
+interface tunnel 266
+ description TE Tunnel to R6
+ ip unnumbered lo0
+ tunnel mode mpls traffic-eng
+ tunnel destination 10.0.0.6
+ tunnel mpls traffic-eng autoroute announce
+ tunnel mode mpls traffic-eng
+ tunnel mpls traffic-eng path-option 10 explicit name LSP_R6_PRI

@@ -1,0 +1,11 @@
+{
+  "node_type": "ios",
+  "policy_name": "L3VPN_CE1",
+  "send_community_both": true,
+  "orf_bidir": true,
+  "soft_reconfiguration": true,
+  "maximum_prefix": 50,
+  "route_map_in": "L3VPN_CE1_IN",
+  "route_map_out": "L3VPN_CE1_OUT",
+  "site_of_origin": "100:01"
+}

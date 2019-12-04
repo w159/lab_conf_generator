@@ -1,0 +1,15 @@
+hostname CSR14-RR
+!
+no ip domain-lookup
+!
+interface loopback0
+ ip address 10.0.0.14 255.255.255.255
+!
+interface gi1
+ description 10Mbps Link to ISP3
+ ip address 10.14.0.254 255.255.255.0
+!
+line con 0
+ exec-timeout 0 0
+ logging synchronous
+ stopbits 1

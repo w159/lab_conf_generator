@@ -1,0 +1,12 @@
+{
+  "node_type": "ios",
+  "description":"IBGP Peer template",
+  "policy_name": "IBGP_PEERS",
+  "remote_as": "100",
+  "password": "CISCO1",
+  "update_source": "Loopback0",
+  "timers": {
+    "keepalive": 30,
+    "holdown": 90
+  }
+}

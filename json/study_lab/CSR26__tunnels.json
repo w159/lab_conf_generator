@@ -1,0 +1,90 @@
+{
+  "node_type": "ios",
+  "te_tunnels": [
+    {
+      "tunnel_id": "265",
+      "tunnel_source": "lo0",
+      "tunnel_destination": "10.0.0.5",
+      "description": "TE Tunnel to R5",
+      "autoroute": true,
+      "path_options": [
+        "LSP_R5_PRI"
+      ]
+    },
+    {
+      "tunnel_id": "266",
+      "tunnel_source": "lo0",
+      "tunnel_destination": "10.0.0.6",
+      "description": "TE Tunnel to R6",
+      "autoroute": true,
+      "path_options": [
+        "LSP_R6_PRI",
+        "LSP_R6_SEC"
+      ]
+    },
+    {
+      "tunnel_id": "267",
+      "tunnel_source": "lo0",
+      "tunnel_destination": "10.0.0.7",
+      "description": "TE Tunnel to R7",
+      "autoroute": true,
+      "path_options": [
+        "LSP_R7_PRI",
+        "LSP_R7_SEC"
+      ]
+    }
+  ],
+  "explicit_paths": [
+    {
+      "name": "LSP_R5_PRI",
+      "next_hops": [
+        "10.0.0.4",
+        "10.0.0.16",
+        "10.0.0.15",
+        "10.0.0.5"
+
+      ]
+    },
+    {
+      "name": "LSP_R6_PRI",
+      "next_hops": [
+        "10.0.0.4",
+        "10.0.0.3",
+        "10.0.0.2",
+        "10.0.0.6"
+
+      ]
+    },
+    {
+      "name": "LSP_R6_SEC",
+      "next_hops": [
+        "10.0.0.4",
+        "10.0.0.16",
+        "10.0.0.15",
+        "10.0.0.1",
+        "10.0.0.6"
+
+      ]
+    },
+    {
+      "name": "LSP_R7_PRI",
+      "next_hops": [
+        "10.0.0.4",
+        "10.0.0.7"
+
+      ]
+    },
+    {
+      "name": "LSP_R7_SEC",
+      "next_hops": [
+        "10.0.0.4",
+        "10.0.0.3",
+        "10.0.0.2",
+        "10.0.0.16",
+        "10.0.0.7"
+
+      ]
+    }
+
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "node_type": "ios",
+  "te_tunnels": [
+    {
+      "tunnel_id": "626",
+      "tunnel_source": "loopback 0",
+      "tunnel_destination": "10.0.0.26",
+      "description": "",
+      "autoroute": true,
+      "path_options": [
+          "LSP_R26_PRI",
+          "LSP_R26_SEC"
+      ]
+    }
+  ],
+  "explicit_paths": [
+    {
+      "name": "LSP_R26_PRI",
+      "next_hops": [
+        "10.0.0.2",
+        "10.0.0.3",
+        "10.0.0.4"
+
+      ]
+    },
+    {
+      "name": "LSP_R26_SEC",
+      "next_hops": [
+        "10.0.0.1",
+        "10.0.0.15",
+        "10.0.0.16",
+        "10.0.0.4"
+
+      ]
+    }
+
+  ]
+}

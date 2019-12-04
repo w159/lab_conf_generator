@@ -1,0 +1,17 @@
+{
+  "hostname": "",
+  "management": {
+    "link_id": "loopback0",
+    "ip_address": "",
+    "netmask": ""
+  },
+  "interfaces": [
+    {
+      "id": "",
+      "description": "L",
+      "ip_address": "",
+      "netmask": ""
+    }
+
+  ]
+}

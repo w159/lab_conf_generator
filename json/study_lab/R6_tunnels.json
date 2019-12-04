@@ -1,0 +1,125 @@
+{
+  "node_type": "ios",
+  "te_tunnels": [
+    {
+      "tunnel_id": "67",
+      "tunnel_source": "Loopback0",
+      "tunnel_destination": "10.0.0.7",
+      "description": "TE Tunnel to R7",
+      "autoroute": true,
+      "path_options": [
+        "TO_R7_PRI",
+        "TO_R7_SEC",
+        "dynamic"
+      ]
+    },
+    {
+      "tunnel_id": "68",
+      "tunnel_source": "Loopback0",
+      "tunnel_destination": "10.0.0.8",
+      "description": "TE Tunnel to R8",
+      "autoroute": true,
+      "path_options": [
+        "TO_R8_PRI",
+        "TO_R8_SEC",
+        "dynamic"
+      ]
+    },
+    {
+      "tunnel_id": "65",
+      "tunnel_source": "Loopback0",
+      "tunnel_destination": "10.0.0.5",
+      "description": "TE Tunnel to R5",
+      "autoroute": true,
+      "path_options": [
+        "TO_R5_PRI",
+        "TO_R5_SEC",
+        "dynamic"
+      ]
+    },
+    {
+      "tunnel_id": "68",
+      "tunnel_source": "Loopback0",
+      "tunnel_destination": "10.0.0.8",
+      "description": "TE Tunnel to R8",
+      "autoroute": true,
+      "path_options": [
+        "TO_R8_PRI",
+        "TO_R8_SEC",
+        "dynamic"
+      ]
+    }
+  ],
+  "explicit_paths": [
+    {
+      "name": "TO_R7_PRI",
+      "next_hops": [
+        "10.0.0.2",
+        "10.0.0.16",
+        "10.0.0.7"
+      ]
+    },
+    {
+      "name": "TO_R7_SEC",
+      "next_hops": [
+        "10.0.0.1",
+        "10.0.0.15",
+        "10.0.0.3",
+        "10.0.0.4",
+        "10.0.0.7"
+      ]
+    },
+    {
+      "name": "TO_R8_PRI",
+      "next_hops": [
+        "10.0.0.2",
+        "10.0.0.3",
+        "10.0.0.8"
+      ]
+    },
+    {
+      "name": "TO_R8_SEC",
+      "next_hops": [
+        "10.0.0.1",
+        "10.0.0.15",
+        "10.0.0.16",
+        "10.0.0.4",
+        "10.0.0.8"
+      ]
+    },
+    {
+      "name": "TO_R5_PRI",
+      "next_hops": [
+        "10.0.0.1",
+        "10.0.0.5"
+      ]
+    },
+    {
+      "name": "TO_R5_SEC",
+      "next_hops": [
+        "10.0.0.2",
+        "10.0.0.16",
+        "10.0.0.15",
+        "10.0.0.5"
+      ]
+    },
+    {
+      "name": "TO_R8_PRI",
+      "next_hops": [
+        "10.0.0.2",
+        "10.0.0.3",
+        "10.0.0.8"
+      ]
+    },
+    {
+      "name": "TO_R8_SEC",
+      "next_hops": [
+        "10.0.0.1",
+        "10.0.0.15",
+        "10.0.0.16",
+        "10.0.0.4",
+        "10.0.0.8"
+      ]
+    }
+  ]
+}

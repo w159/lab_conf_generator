@@ -1,0 +1,14 @@
+{% if explicit_paths %}{% for path in  explicit_paths%}ip explicit-path name {{ path.name }}{% for next_hop in path.next_hops %}
+ next-address {{ next_hop }} {% endfor %}
+{% endfor %}!{% endif %}{% if te_tunnels %}{% for te_tunnel in te_tunnels%}
+!
+interface tunnel {{ te_tunnel.tunnel_id }}
+ description {{ te_tunnel.description }}
+ ip unnumbered {{ te_tunnel.tunnel_source  }}
+ tunnel mode mpls traffic-eng
+ tunnel destination {{ te_tunnel.tunnel_destination }}{% if te_tunnel.autoroute %}
+ tunnel mpls traffic-eng autoroute announce{% endif %}
+ tunnel mode mpls traffic-eng{% for path_option in te_tunnel.path_options %}{% if path_option != "dynamic" %}
+ tunnel mpls traffic-eng path-option {{ loop.index }}0 explicit name {{ path_option }}{% endif %}{% if path_option == "dynamic" %}
+ tunnel mpls traffic-eng path-option {{ loop.index }}0 dynamic{% endif %}{% endfor %}{% endfor %}{% endif %}
+

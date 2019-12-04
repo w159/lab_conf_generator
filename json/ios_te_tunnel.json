@@ -1,0 +1,24 @@
+{
+  "node_type": "ios",
+  "te_tunnels": [
+    {
+      "tunnel_id": "",
+      "tunnel_source": "",
+      "tunnel_destination": "",
+      "description": "",
+      "autoroute": true,
+      "path_options": [
+
+      ]
+    }
+  ],
+  "explicit_paths": [
+    {
+      "name": "",
+      "next_hops": [
+
+      ]
+    }
+
+  ]
+}

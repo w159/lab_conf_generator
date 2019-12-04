@@ -1,0 +1,16 @@
+{
+  "hostname": "CSR14-RR",
+  "management": {
+    "link_id": "loopback0",
+    "ip_address": "10.0.0.14",
+    "netmask": "255.255.255.255"
+  },
+  "interfaces": [
+    {
+      "id": "gi1",
+      "description": "10Mbps Link to ISP3",
+      "ip_address": "10.14.0.254",
+      "netmask": "255.255.255.0"
+    }
+  ]
+}

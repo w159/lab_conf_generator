@@ -1,0 +1,28 @@
+{
+  "hostname": "DEMO-PE",
+  "management": {
+    "link_id": "loopback0",
+    "ip_address": "10.0.0.1",
+    "netmask": "255.255.255.255"
+  },
+  "interfaces": [
+    {
+      "id": "GigabitEthernet1",
+      "description": "Link to CSR2-PE",
+      "ip_address": "10.1.2.1",
+      "netmask": "255.255.255.252"
+    },
+    {
+      "id": "GigabitEthernet2",
+      "description": "Link to CSR3-PE",
+      "ip_address": "10.1.3.1",
+      "netmask": "255.255.255.252"
+    },
+    {
+      "id": "GigabitEthernet3",
+      "description": "Link to CSR3-PE",
+      "ip_address": "10.1.3.1",
+      "netmask": "255.255.255.252"
+    }
+  ]
+}

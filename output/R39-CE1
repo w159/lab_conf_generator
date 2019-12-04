@@ -1,0 +1,19 @@
+hostname R39-CE1
+!
+no ip domain-lookup
+!
+interface loopback0
+ ip address 10.0.0.39 255.255.255.255
+!
+interface eth0/0
+ description 10Mbps Link to ISP3
+ ip address 155.23.39.2 255.255.255.252
+!
+interface loopback1
+ description Internal LAN
+ ip address 10.39.0.1 255.255.255.248
+!
+line con 0
+ exec-timeout 0 0
+ logging synchronous
+ stopbits 1

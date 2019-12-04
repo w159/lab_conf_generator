@@ -1,0 +1,7 @@
+{
+  "node_type": "ios",
+  "policy_name": "IPV4_IBGP",
+  "send_community_both": true,
+  "orf_bidir": true,
+  "soft_reconfiguration": true
+}

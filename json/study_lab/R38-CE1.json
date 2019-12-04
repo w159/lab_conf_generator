@@ -1,0 +1,23 @@
+{
+  "hostname": "R38-CE1",
+  "management": {
+    "link_id": "loopback0",
+    "ip_address": "10.0.0.38",
+    "netmask": "255.255.255.255"
+  },
+  "interfaces": [
+    {
+      "id": "eth0/0",
+      "description": "10Mbps Link to ISP3",
+      "ip_address": "155.5.38.2",
+      "netmask": "255.255.255.252"
+    },
+    {
+      "id": "loopback1",
+      "description": "Internal LAN",
+      "ip_address": "10.38.0.1",
+      "netmask": "255.255.255.248"
+    }
+
+  ]
+}

@@ -1,0 +1,99 @@
+template peer-policy {{ policy_name }}
+ {% if allowas_in %}
+ allowas-in {{ allowas_in }}
+ {% endif %}
+ {% if filter_list_in %}
+ filter-list {{ filter_list_in}} in
+ {% endif %}
+ {% if filter_list_out %}
+ filter-list {{ filter_list_out}} out
+ {% endif %}
+ {% if route_map_in %}
+ route-map {{ route_map_in }} in
+ {% endif %}
+ {% if route_map_out %}
+ route-map {{ route_map_out }} out
+ {% endif %}
+ {% if prefix_list_in %}
+ prefix-list {{ prefix_list_in}} in
+ {% endif %}
+ {% if prefix_list_out %}
+ prefix-list {{ prefix_list_out}} out
+ {% endif %}
+ {% if maximum_prefix  %}
+ maximum-prefix {{ maximum_prefix }}
+ {% endif %}
+ {% if orf_recv %}
+ capability orf prefix-list receive
+ {% endif %}
+ {% if orf_send %}
+ capability orf prefix-list send
+ {% endif %}
+ {% if orf_bidir %}
+ capability orf prefix-list both
+ {% endif %}
+ {% if prefix_list_out %}
+ prefix-list {{ prefix_list_out}} out
+ {% endif %}
+ {% if site_of_origin %}
+ soo {{ site_of_origin }}
+ {% endif %}
+ {% if send_community_standard %}
+ send-community standard
+ {% endif %}
+ {% if send_community_extended %}
+ send-community extended
+ {% endif %}
+ {% if send_community_both %}
+ send-community both
+ {% endif %}
+ {% if route_reflector_client %}
+ route-reflector-client
+ {% endif %}
+ {% if route_server_client %}
+ route-server-client
+ {% endif %}
+ {% if default_originate %}
+ default-originate
+ {% endif %}
+ {% if default_originate_route_map %}
+ default-originate route-map {{ default_originate_route_map }}
+ {% endif %}
+ {% if send_label %}
+ send-label
+ {% endif %}
+ {% if soft_reconfiguration %}
+ soft-reconfiguration inbound
+ {% endif %}
+ {% if add_path_all -%}
+ advertise additional-paths all
+ {% endif %}
+ {% if add_path_all_best %}
+ advertise additional-paths all best
+ {% endif %}
+ {% if add_path_best %}
+ advertise additional-paths best {{ add_path_best }}
+ {% endif %}
+ {% if add_path_best_all %}
+ advertise additional-paths best {{ add_path_best }} all
+ {% endif %}
+ {% if advertise_map_exist %}
+ advertise-map {{ advertise_map_exist.advertise_map }} exist-map {{ advertise_map_exist.exist_map }}
+ {% endif %}
+ {% if advertise_map_nonexist %}
+ advertise-map {{ advertise_map_nonexist.advertise_map }}  non-exist-map {{  advertise_map_nonexist.non_exist_map }}
+ {% endif %}
+ {% if next_hop_self %}
+ next-hop-self
+ {% endif %}
+ {% if next_hop_self_all %}
+ next-hop-self all
+ {% endif %}
+ {% if next_hop_unchanged %}
+ next-hop-unchanged
+ {% endif %}
+ {% if next_hop_unchanged_allpaths %}
+ next-hop-unchanged allpaths
+ {% endif %}
+exit-peer-policy
+

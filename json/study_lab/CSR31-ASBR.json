@@ -1,0 +1,22 @@
+{
+  "hostname": "CSR31-ISP2-RR",
+  "management": {
+    "link_id": "loopback0",
+    "ip_address": "10.0.0.31",
+    "netmask": "255.255.255.255"
+  },
+  "interfaces": [
+    {
+      "id": "gi1.99",
+      "description": "Link to ISP1",
+      "ip_address": "155.31.34.1",
+      "netmask": "255.255.255.252"
+    },
+    {
+      "id": "gi2",
+      "description": "Link to CSR32-P",
+      "ip_address": "155.31.32.1",
+      "netmask": "255.255.255.252"
+    }
+  ]
+}

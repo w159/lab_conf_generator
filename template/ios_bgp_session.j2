@@ -1,0 +1,59 @@
+template peer-session {{ policy_name }}
+ {% if remote_as %}
+ remote-as {{ remote_as }}
+ {% endif %}
+ {% if description %}
+ description {{ description }}
+ {% endif %}
+ {% if update_source %}
+ update-source {{ update_source }}
+ {% endif %}
+ {% if inherit_session %}
+ inherit peer-session {{ inherit_session }}
+ {% endif %}
+ {% if timers %}
+ timers {{ timers.keepalive }} {{ timers.holdown }}
+ {% endif %}
+ {% if transport_connection_mode %}
+ transport connection-mode {{ transport_connection_mode }}
+ {% endif %}
+ {% if transport_multi_session %}
+ transport multi-session
+ {% endif %}
+ {% if transport_path_mtu_discovery %}
+ transport path-mtu-discovery disable
+ {% endif %}
+ {% if ebgp_multihop %}
+ ebgp-multihop {{ ebgp_multihop }}
+ {% endif %}
+ {% if ttl_security %}
+ ttl-security hops {{ ttl_security }}
+ {% endif %}
+ {% if password %}
+ password {{ password }}
+ {% endif %}
+ {% if cluster_id %}
+ cluster-id {{ cluster_id }}
+ {% endif %}
+ {% if disable_connected_check %}
+ disable-connected-check
+ {% endif %}
+ {% if shutdown %}
+ shutdown
+ {% endif %}
+ {% if local_as %}
+ local-as {{ local_as }}
+ {% endif %}
+ {% if local_as_dual_as %}
+ local-as {{ local_as_dual_as }} dual-as
+ {% endif %}
+ {% if local_as_no_prepend %}
+ local-as {{ local_as_no_prepend }} no-prepend
+ {% endif %}
+ {% if local_as_no_prepend_replace_as %}
+ local-as {{ local_as_no_prepend_replace_as }} no-prepend replace-as
+ {% endif %}
+ {% if local_as_no_prepend_replace_dual_as %}
+ local-as {{ local_as_no_prepend_replace_as }} no-prepend replace-as dual-as
+ {% endif %}
+exit-peer-session
