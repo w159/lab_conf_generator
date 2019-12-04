@@ -60,7 +60,7 @@ def _open_file(file_name):
 
 
 def main():
-    parser = argparse.ArgumentParser(description='Cisco Lab Aide')
+    parser = argparse.ArgumentParser(description='Byt3m3 Lab Configuration Generator')
     parser.add_argument("--base_config", help="Generates Base Config for router")
     parser.add_argument("--te_tunnels", help="Generates Base Config for router")
     parser.add_argument("--bgp_policy", help="Generates BGP policy-template configurations")
@@ -107,6 +107,7 @@ def main():
 
         _process_bgp_session(data, output_filename)
 
+    print(parser.print_help())
 
 if __name__ == "__main__":
     main()
