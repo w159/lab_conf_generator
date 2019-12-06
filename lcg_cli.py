@@ -1,5 +1,5 @@
-import json
 import argparse
+import json
 
 from lcg.controllers.config_gen import ConfigGenerator
 
@@ -41,6 +41,15 @@ def _process_bgp_session(data, out_filename):
         config_gen.write()
 
 
+def _process_ios_vpls(data, out_filename):
+    config_gen = ConfigGenerator(template_type="ios_vfi_vpls",
+                                 output_file=out_filename,
+                                 facts=data
+                                 )
+    config_gen.write()
+
+
+# Utility Functions
 def _open_input_file(file_name):
     with open(file_name, "r") as json_file:
         data = json.load(json_file)
@@ -54,6 +63,7 @@ def main():
     parser.add_argument("--te_tunnels", help="Generates Base Config for router")
     parser.add_argument("--bgp_policy", help="Generates BGP policy-template configurations")
     parser.add_argument("--bgp_session", help="Generates BGP session-template configurations")
+    parser.add_argument("--ios_vpls", help="Generates IOS-XE Based VPLS configurations")
     parser.add_argument("-o", help="Output File Name")
     parser.add_argument("-v", "--verbose", help="Displays Data to STDOUT", action="store_true")
 
@@ -97,6 +107,10 @@ def main():
         data = _open_input_file(input_filename)
         _process_bgp_session(data, output_filename)
         exit(0)
+
+    if args.ios_vpls:
+        input_filename = args.ios_vpls
+        data = _open_input_file(input_filename)
 
     print(parser.print_help())
 
