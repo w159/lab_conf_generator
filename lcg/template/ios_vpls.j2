@@ -25,8 +25,8 @@ bridge-domain {{ bd.id }}
 {% endif %}
 !
 {# EFP Configurations #}
-{% if EFPS %}
-{% for ac in EFPS %}
+{% if efps %}
+{% for ac in efps %}
 interface {{ ac.link_id }}
  service instance {{ ac.instance_id }} ethernet
 {% if ac.encapsulation.encap_type == "DOT1Q" %}
