@@ -1,25 +1,25 @@
+{# VFI Configurations #}
+{% if  vfis%}
+{% for ac in vfis %}
+l2 vfi {{ ac.name }} manual
+ vpn id {{ ac.vfi_id }}
+{% for peer in ac.vfi_peers %}
+ neighbor {{ peer.remote_addr }} encapsulation mpls
+{% endfor %}
+{% endfor %}
+{% endif %}
+!
 {# Bridge Domain Configurations #}
 {% if bridge_domains %}
 {% for bd in bridge_domains %}
 bridge-domain {{ bd.id }}
 {% for member in bd.members %}
-{% if member.type == 'ac' %}
+{% if member.member_type == 'ac' %}
  member {{ member.link_id }} service-instance {{ member.instance_id }}
 {% endif %}
-{% if member.type == 'vfi' %}
+{% if member.member_type == 'vfi' %}
  member vfi {{ member.vfi_name }}
 {% endif %}
-{% endfor %}
-{% endfor %}
-{% endif %}
-!
-{# VFI Configurations #}
-{% if  vfis%}
-{% for ac in access_circuits %}
-l2 vfi {{ ac.name }} manual
- vpn id {{ ac.vpls_id }}
-{% for peer in ac.vpls_peers %}
- neighbor {{ peer.remote_addr }} encapsulation mpls
 {% endfor %}
 {% endfor %}
 {% endif %}
@@ -32,7 +32,8 @@ interface {{ ac.link_id }}
 {% if ac.encapsulation.encap_type == "DOT1Q" %}
  encapsulation dot1q {{ ac.encapsulation.c_tag  }}
 {% endif %}
+!
 {% endfor %}
 {% endif %}
-
+end
 

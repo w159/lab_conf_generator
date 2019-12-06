@@ -65,9 +65,13 @@ class MyTestCase(unittest.TestCase):
                                      template_type="ios_vfi_vpls",
                                      output_file="../output/test_ios_vpls"
                                      )
+        result = config_gen.to_stdout()
+        print(result)
+        self.assertIsInstance(result, str)
 
+        vfi_count = len(config_gen.facts.get("vfis"))
+        self.assertEquals(vfi_count, 1)
 
-        print(config_gen.to_stdout())
 
 
 if __name__ == '__main__':

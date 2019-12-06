@@ -7,6 +7,14 @@ data_ios_vpls = {
                 "encap_type": "DOT1Q",
                 "c_tag": 200
             }
+        },
+        {
+            "link_id": "GigabitEthernet2",
+            "instance_id": "10",
+            "encapsulation": {
+                "encap_type": "DOT1Q",
+                "c_tag": 300
+            }
         }
     ],
     "vfis": [
@@ -16,6 +24,9 @@ data_ios_vpls = {
             "vfi_peers": [
                 {
                     "remote_addr": "10.0.0.1"
+                },
+                {
+                    "remote_addr": "10.0.0.5"
                 }
             ]
         }
@@ -30,7 +41,7 @@ data_ios_vpls = {
                     "instance_id": 100
                 },
                 {
-                    "type": "vfi",
+                    "member_type": "vfi",
                     "vfi_name": "CE1_VPLS"
                 }
             ]
