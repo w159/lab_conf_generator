@@ -40,6 +40,7 @@ class MyTestCase(unittest.TestCase):
                                      output_file="../output/test_ios_vpls"
                                      )
         result = config_gen.to_stdout()
+        print(result)
 
         self.assertIsInstance(result, str)
 
@@ -47,7 +48,7 @@ class MyTestCase(unittest.TestCase):
         efp_count = len(config_gen.facts.get("efps"))
 
         self.assertEqual(vfi_count, 1)
-        self.assertEqual(efp_count, 2)
+        self.assertEqual(efp_count, 1)
 
 
 if __name__ == '__main__':
