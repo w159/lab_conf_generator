@@ -25,7 +25,7 @@
       "id": 100,
       "members": [
         {
-          "type": "ac",
+          "member_type": "ac",
           "link_id": "GigabitEthernet1",
           "instance_id": 100
         },

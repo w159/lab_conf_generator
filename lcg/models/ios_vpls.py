@@ -3,20 +3,27 @@ from marshmallow import Schema, fields
 VPLS_ENCAPSULATION_TYPES = ["DOT1Q"]
 
 
-# TODO: Add Schema for VFI-Peers
 class IOSVFIPeersSchema(Schema):
     remote_addr = fields.Str()
 
 
-# TODO: Add Schema for VFI
 class IOSVFISchema(Schema):
     name = fields.Str(required=True)
     vfi_id = fields.Str(required=True)
-    vfi_peers = fields.Nested(IOSVFIPeersSchema)
+    vfi_peers = fields.List(fields.Nested(IOSVFIPeersSchema))
 
 
 # TODO: Add Schema for bridge-domain
-# TODO: Add Schema for bridge-domain members
+class IOSBridgeDomainMemberSchema(Schema):
+    member_type = fields.Str()
+    link_id = fields.Str()
+    instance_id = fields.Int()
+
+
+class IOSBridgeDomainSchema(Schema):
+    bridge_id = fields.Int()
+    members = fields.List(fields.Nested(IOSBridgeDomainMemberSchema))
+
 
 class IOSVPLSEncapsulationSchema(Schema):
     encap_type = fields.Str(required=True)
@@ -28,7 +35,3 @@ class IOSEFPSchema(Schema):
     link_id = fields.Str(required=True)
     instance_id = fields.Str(required=True)
     encapsulation = fields.Nested(IOSVPLSEncapsulationSchema)
-
-
-class IOSVPLSSchema(Schema):
-    pass

@@ -1,9 +1,9 @@
 import unittest
 
-from lcg.constants import MAP_TEMPLATE_TYPES
 from lcg.controllers.config_gen import ConfigGenerator
+from test.vars import data_ios_vpls
 
-import os
+
 # os.chdir("..")
 
 class MyTestCase(unittest.TestCase):
@@ -60,7 +60,14 @@ class MyTestCase(unittest.TestCase):
 
         config_generator.write()
 
-        print(config_generator.to_stdout())
+    def test_ios_vpls(self):
+        config_gen = ConfigGenerator(facts=data_ios_vpls,
+                                     template_type="ios_vfi_vpls",
+                                     output_file="../output/test_ios_vpls"
+                                     )
+
+
+        print(config_gen.to_stdout())
 
 
 if __name__ == '__main__':

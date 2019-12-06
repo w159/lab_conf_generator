@@ -29,8 +29,8 @@ l2 vfi {{ ac.name }} manual
 {% for ac in EFPS %}
 interface {{ ac.link_id }}
  service instance {{ ac.instance_id }} ethernet
-{% if ac.enapsulation.type == "DOT1Q" %}
- encapsulation dot1q {{ ac.enapsulation.c_tag  }}
+{% if ac.encapsulation.encap_type == "DOT1Q" %}
+ encapsulation dot1q {{ ac.encapsulation.c_tag  }}
 {% endif %}
 {% endfor %}
 {% endif %}

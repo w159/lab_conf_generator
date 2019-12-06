@@ -1,3 +1,4 @@
+config t
 hostname BITS-TEST
 !
 no ip domain-lookup
@@ -17,3 +18,6 @@ line con 0
  exec-timeout 0 0
  logging synchronous
  stopbits 1
+ exit
+end
+wr
