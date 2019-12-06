@@ -3,8 +3,8 @@
     {
       "link_id": "GigabitEthernet1",
       "instance_id": "10",
-      "enapsulation": {
-        "type": "DOT1Q",
+      "encapsulation": {
+        "encap_type": "DOT1Q",
         "c_tag": 200
       }
     }
