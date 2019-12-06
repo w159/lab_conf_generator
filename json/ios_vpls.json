@@ -12,8 +12,8 @@
   "vfis": [
     {
       "name": "CE1_VPLS",
-      "vpls_id": 100,
-      "vpls_peers": [
+      "vfi_id": 100,
+      "vfi_peers": [
         {
           "remote_addr": "10.0.0.1"
         }
