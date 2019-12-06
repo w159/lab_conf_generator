@@ -1,0 +1,41 @@
+{
+  "EFPS": [
+    {
+      "link_id": "GigabitEthernet1",
+      "instance_id": "10",
+      "enapsulation": {
+        "type": "DOT1Q",
+        "c_tag": 200
+      }
+    }
+  ],
+  "vfis": [
+    {
+      "name": "CE1_VPLS",
+      "vpls_id": 100,
+      "vpls_peers": [
+        {
+          "remote_addr": "10.0.0.1"
+        }
+      ]
+    }
+  ],
+  "bridge_domains": [
+    {
+      "id": 100,
+      "members": [
+        {
+          "type": "ac",
+          "link_id": "GigabitEthernet1",
+          "instance_id": 100
+        },
+        {
+          "type": "vfi",
+          "vfi_name": "CE1_VPLS"
+        }
+      ]
+    }
+  ]
+
+}
+
