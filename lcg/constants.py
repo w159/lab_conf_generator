@@ -27,7 +27,8 @@ MAP_TEMPLATE_TYPES = {
     },
     "ios_vpls": {
         "template_file": "ios_vpls.j2",
-        "schema": IOSVPLSSchema()
+        "schema": IOSVPLSSchema(),
+    },
     "ios_evpn": {
         "template_file": "ios_evpn.j2",
         "schema": IOSEVPNSchema()
