@@ -1,0 +1,35 @@
+{
+  "evpn_router_id": "Loopback0",
+  "evis": [
+    {
+      "instance_id": 10,
+      "imports": [],
+      "exports": ["10:10"],
+      "vlan_based": false
+    }
+  ],
+  "bridge_domains": [
+    {
+     "domain_id": 10,
+      "members": [
+        {
+          "member_type": "efp",
+          "efp_id": "GigabitEthernet3",
+          "efp_instance": 10
+        },
+        {
+          "member_type": "evpn",
+          "evpn_id": 10
+        }
+      ]
+    }
+  ],
+  "efps": [
+    {
+      "port": "GigabitEthernet3",
+      "efp_id": "10",
+      "encap": "dot1q",
+      "c_tag": 10
+    }
+  ]
+}
