@@ -24,10 +24,10 @@ class IOSBridgeDomainMemberSchema(Schema):
 
 class IOSBridgeDomainSchema(Schema):
     domain_id = fields.Int()
-    members = fields.List(IOSBridgeDomainMemberSchema)
+    members = fields.List(fields.Nested(IOSBridgeDomainMemberSchema))
 
 
 class IOSEVPNSchema(Schema):
-    efps = fields.List(IOSEFPSchema)
-    evis = fields.List(IOSEVISchema)
-    bridge_domains = fields.List(IOSBridgeDomainSchema)
+    efps = fields.List(fields.Nested(IOSEFPSchema))
+    evis = fields.List(fields.Nested(IOSEVISchema))
+    bridge_domains = fields.List(fields.Nested(IOSBridgeDomainSchema))
