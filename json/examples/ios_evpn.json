@@ -3,14 +3,26 @@
   "evis": [
     {
       "instance_id": 10,
-      "imports": [],
-      "exports": ["10:10"],
+      "imports": [
+        "10:10"
+      ],
+      "exports": [
+        "10:10"
+      ],
       "vlan_based": false
+    }
+  ],
+  "efps": [
+    {
+      "port": "GigabitEthernet3",
+      "efp_id": "10",
+      "encap": "dot1q",
+      "c_tag": 10
     }
   ],
   "bridge_domains": [
     {
-     "domain_id": 10,
+      "domain_id": 10,
       "members": [
         {
           "member_type": "efp",
@@ -22,14 +34,6 @@
           "evpn_id": 10
         }
       ]
-    }
-  ],
-  "efps": [
-    {
-      "port": "GigabitEthernet3",
-      "efp_id": "10",
-      "encap": "dot1q",
-      "c_tag": 10
     }
   ]
 }
