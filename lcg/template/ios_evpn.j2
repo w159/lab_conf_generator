@@ -1,0 +1,46 @@
+l2vpn evpn
+ replication-type ingress
+ mpls label mode per-ce
+ router-id {{ evpn_router_id }}
+!
+!
+{% if evis %}
+{% for evi in evis %}
+{% if evi.vlan_based %}
+l2vpn evpn instance 10 vlan-based
+{% endif %}
+{% if not evi.vlan_based %}
+l2vpn evpn instance 10
+{% endif %}
+{% for export in eve.exports %}
+ route-target export {{ export }}
+{% endfor %}
+{% for import in eve.imports %}
+ route-target import {{ import }}
+{% endfor %}
+ no auto-route-target
+!
+{% endfor %}
+{% endif %}
+!
+{% if bridge_domains %}
+{% for domain in bridge_domains %}
+bridge-domain {{ domain.domain_id }}
+{% if domain.member_type == "efp" %}
+ member {{ domain.efp_id }} service-instance {{ domain.efp_instance }}
+{% endif %}
+{% if domain.member_type == "evpn" %}
+ member evpn-instance {{ domain.evpn_id }}
+{% endif %}
+!
+{% endfor %}
+{% endif %}
+{% if efps %}
+{% for efp in efps %}
+interface {{ efp.port }}
+ service instance 10 {{ efp.efp_id }}
+{% if efp.encap == "dot1q" %}
+  encapsulation dot1q {{ efp.c_tag }}
+{% endif %}
+{% endfor %}
+{% endif %}
