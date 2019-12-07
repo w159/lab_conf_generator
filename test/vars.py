@@ -3,17 +3,10 @@ data_ios_vpls = {
         {
             "link_id": "GigabitEthernet1",
             "instance_id": "10",
+            "bridge_domain": "100",
             "encapsulation": {
                 "encap_type": "DOT1Q",
                 "c_tag": 200
-            }
-        },
-        {
-            "link_id": "GigabitEthernet2",
-            "instance_id": "10",
-            "encapsulation": {
-                "encap_type": "DOT1Q",
-                "c_tag": 300
             }
         }
     ],
@@ -21,6 +14,7 @@ data_ios_vpls = {
         {
             "name": "CE1_VPLS",
             "vfi_id": 100,
+            "bridge_domain": 100,
             "vfi_peers": [
                 {
                     "remote_addr": "10.0.0.1"
