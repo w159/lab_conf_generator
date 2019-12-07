@@ -11,6 +11,7 @@ class IOSVFISchema(Schema):
     name = fields.Str(required=True)
     vfi_id = fields.Str(required=True)
     vfi_peers = fields.List(fields.Nested(IOSVFIPeersSchema))
+    bridge_domain = fields.Str(required=True)
 
 
 # TODO: Add Schema for bridge-domain
@@ -35,3 +36,10 @@ class IOSEFPSchema(Schema):
     link_id = fields.Str(required=True)
     instance_id = fields.Str(required=True)
     encapsulation = fields.Nested(IOSVPLSEncapsulationSchema)
+    bridge_domain = fields.Str(required=True)
+
+
+class IOSVPLSSchema(Schema):
+    efps = fields.List(fields.Nested(IOSEFPSchema))
+    vifs = fields.List(fields.Nested(IOSVFISchema))
+    bridge_domains = fields.List(fields.Nested(IOSBridgeDomainSchema))

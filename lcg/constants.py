@@ -1,6 +1,6 @@
 from lcg.models.ios_base_node import IOSNodeSchema
 from lcg.models.ios_bgp import IOSBGPSessionSchema, IOSBGPPolicySchema
-from lcg.models.ios_vpls import IOSVFISchema, IOSBridgeDomainSchema
+from lcg.models.ios_vpls import IOSVPLSSchema
 from lcg.models.te_tunnels import IOSTETunnelSchema, IOSExplicitPathSchema
 from lcg.models.ios_evpn import IOSEVPNSchema
 
@@ -25,17 +25,13 @@ MAP_TEMPLATE_TYPES = {
         "template_file": "ios_explicit_path.j2",
         "schema": IOSExplicitPathSchema()
     },
-    "ios_vfi_vpls": {
+    "ios_vpls": {
         "template_file": "ios_vpls.j2",
-        "schema": IOSVFISchema()
-    },
-    "ios_bridge_domain": {
-        "template_file": "ios_vpls.j2",
-        "schema": IOSBridgeDomainSchema()
-    },
+        "schema": IOSVPLSSchema()
     "ios_evpn": {
         "template_file": "ios_evpn.j2",
         "schema": IOSEVPNSchema()
+
     }
 }
 
