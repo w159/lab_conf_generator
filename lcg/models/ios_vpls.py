@@ -37,3 +37,9 @@ class IOSEFPSchema(Schema):
     instance_id = fields.Str(required=True)
     encapsulation = fields.Nested(IOSVPLSEncapsulationSchema)
     bridge_domain = fields.Str(required=True)
+
+
+class IOSVPLSSchema(Schema):
+    efps = fields.List(fields.Nested(IOSEFPSchema))
+    vifs = fields.List(fields.Nested(IOSVFISchema))
+    bridge_domains = fields.List(fields.Nested(IOSBridgeDomainSchema))

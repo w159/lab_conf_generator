@@ -36,7 +36,7 @@ class MyTestCase(unittest.TestCase):
 
     def test_ios_vpls(self):
         config_gen = ConfigGenerator(facts=data_ios_vpls,
-                                     template_type="ios_vfi_vpls",
+                                     template_type="ios_vpls",
                                      output_file="../output/test_ios_vpls"
                                      )
         result = config_gen.to_stdout()
