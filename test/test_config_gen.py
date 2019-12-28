@@ -40,7 +40,7 @@ class MyTestCase(unittest.TestCase):
                                      output_file="../output/test_ios_vpls"
                                      )
         result = config_gen.to_stdout()
-        print(result)
+
 
         self.assertIsInstance(result, str)
 

@@ -86,8 +86,9 @@ class ConfigGenerator:
 
         validation_results = schema.validate(self.facts)
         if len(validation_results.keys()) == 0:
+            print(self.template)
 
-            _write_template(self.facts, self.template, self.output_file)
+            # _write_template(self.facts, self.template, self.output_file)
 
         else:
             raise Exception(validation_results)

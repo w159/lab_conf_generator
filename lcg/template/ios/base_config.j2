@@ -3,6 +3,7 @@
 {# TODO: Add Login Banner  #}
 {# TODO: Change all vars with options to use dict style variable access #}
 enable
+!
 config t
 hostname {{ hostname }}
 !
@@ -17,7 +18,10 @@ interface {{ management.link_id }}
 interface {{ interface.link_id }}
  description {{ interface.description }}
  ip address {{ interface.ip_address }} {{ interface.netmask }}
- no shutdown
+{% if interface.routing %}
+{% if interface.routing == "HOLD" %}
+{% endif %}
+{% endif %}
 !
 {% endfor %}
 line con 0
@@ -25,5 +29,7 @@ line con 0
  logging synchronous
  stopbits 1
  exit
+!
 end
+!
 wr
