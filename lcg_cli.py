@@ -68,13 +68,14 @@ def main():
     parser.add_argument("-v", "--verbose", help="Displays Data to STDOUT", action="store_true")
 
     args = parser.parse_args()
+    print(args)
 
-    if not args.o:
-        try:
-            raise Exception("Please provide output filename using the '-o' Flag")
-        except Exception as error:
-            print(error)
-            exit()
+    # if not args.o:
+    #     try:
+    #         raise Exception("Please provide output filename using the '-o' Flag")
+    #     except Exception as error:
+    #         print(error)
+    #         exit()
 
     output_filename = args.o
 
@@ -112,7 +113,7 @@ def main():
         input_filename = args.ios_vpls
         data = _open_input_file(input_filename)
 
-    print(parser.print_help())
+    # print(parser.print_help())
 
 
 if __name__ == "__main__":

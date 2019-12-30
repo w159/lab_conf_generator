@@ -1,8 +1,8 @@
 from lcg.models.ios_base_node import IOSNodeSchema
 from lcg.models.ios_bgp import IOSBGPSessionSchema, IOSBGPPolicySchema
+from lcg.models.ios_evpn import IOSEVPNSchema
 from lcg.models.ios_vpls import IOSVPLSSchema
 from lcg.models.te_tunnels import IOSTETunnelSchema, IOSExplicitPathSchema
-from lcg.models.ios_evpn import IOSEVPNSchema
 
 MAP_TEMPLATE_TYPES = {
     "ios_base_node": {
@@ -33,7 +33,12 @@ MAP_TEMPLATE_TYPES = {
         "template_file": "ios_evpn.j2",
         "schema": IOSEVPNSchema()
 
+    },
+    "xr_base_config": {
+        "template_file": "ios_xr/xr_base_config.j2",
+        "schema": IOSNodeSchema()
     }
+
 }
 
 TEMPLATE_SEARCH_PATHS = ["lcg/template", '../lcg/template']

@@ -11,7 +11,14 @@
       "link_id": "GigabitEthernet1",
       "description": "Link to CSR2-PE",
       "ip_address": "10.1.2.1",
-      "netmask": "255.255.255.252"
+      "netmask": "255.255.255.252",
+      "routing": [
+        {
+          "proto": "ospf",
+          "area_id": "0.0.0.0",
+          "network_type": "point-to-point"
+        }
+      ]
     },
     {
       "link_id": "GigabitEthernet2",

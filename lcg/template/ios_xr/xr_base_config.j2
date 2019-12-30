@@ -1,0 +1,21 @@
+config t
+!
+hostname {{ hostname }}
+!
+{% if management %}
+interface {{ management.link_id }}
+ ipv4 address {{ management.ip_address }} {{ management.netmask }}
+{% endif %}
+!
+{% for interface in interfaces %}
+interface {{ interface.link_id }}
+ description {{ interface.description }}
+ ipv4 address {{ interface.ip_address }} {{ interface.netmask }}
+    no shutdown
+!
+{% endfor %}
+!
+line con 0
+ exec-timeout 0 0
+!
+commit
