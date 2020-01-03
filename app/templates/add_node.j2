@@ -5,7 +5,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-
+    <link rel="stylesheet" href="..\static\main.css">
     <link rel="stylesheet" href="../static/bootstrap/dist/css/bootstrap.min.css">
     {#    <script src="../static/jquery/dist/jquery.js"></script>#}
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
@@ -25,14 +25,68 @@
 <div class="container">
     <div class="row">
         <div class="col">
-            <form action="">
+
             <div class="form-group">
+                <div class="dropdown pb-2">
+                    <label for="NODE_TYPE">Node Type</label>
+                    <select class="form-control form-control-sm" id="NODE_TYPE">
+                        <option>IOS</option>
+                        <option>IOS_XR</option>
+                    </select>
+                </div>
                 <label for="Hostname">Hostname</label>
                 <input type="text" class="form-control" id="HOSTNAME"
-                       placeholder="Another input placeholder">
+                       placeholder="Hostname">
+
             </div>
-                <div class="btn btn-primary">Add</div>
-        </form>
+            <div class="row">
+                <div class="col">
+                    <label for="MGMT_IP">Management IP Address</label>
+                    <input type="text" class="form-control" id="MGMT_IP"
+                           placeholder="MGMT IP">
+                </div>
+
+
+                <div class="col">
+                    <label for="MGMT_IP">Subnet Mask:</label>
+                    <input type="text" class="form-control" id="MGMT_NETMASK"
+                           placeholder="Subnet Mask">
+                </div>
+
+
+            </div>
+            <div class="row m-3">
+                <div class="col">
+                    <div class="row">
+                        <div class="col-12">
+                            <label class="" for="LINK_COUNT">Link Count</label>
+                            <select style="width: 10%" class="custom-select mr-sm-2" id="LINK_COUNT"
+                                    onchange="makeLinks()">
+                                <option selected value="0">0</option>
+
+                            </select>
+                        </div>
+
+                        <hr>
+                    </div>
+
+                    <div class="container mt-3" id="LINK_ROWS">
+
+                        {#                        <div class="col">#}
+                        {##}
+                        {#                        </div>#}
+
+                    </div>
+
+                    <div class="row pt-3">
+                        <div onclick="clickAdd()" class="btn btn-primary">Add</div>
+                    </div>
+
+                </div>
+
+            </div>
+
+
         </div>
 
     </div>
@@ -40,3 +94,105 @@
 
 
 </body>
+<script>
+    function clickAdd() {
+        let node_obj = {
+            "node_type": $('#NODE_TYPE').val(),
+            "hostname": $('#HOSTNAME').val(),
+            "management": {
+                "link_id": "loopback 0",
+                "ip_address": $('#MGMT_IP').val(),
+                "netmask": $('#MGMT_NETMASK').val()
+            },
+            "interfaces": [],
+        }
+        let link_count = $('#LINK_COUNT').val();
+
+
+        for (i = 0; i < link_count; i++) {
+            let link_id = $(`#${i + 1}_LINK_ID`).val();
+            let ip_addr = $(`#${i + 1}_IP_ADDR`).val();
+            let netmask = $(`#${i + 1}_NETMASK`).val();
+            let description = $(`#${i + 1}_DESCRIPTION`).val();
+
+            link_data = {
+                "link_id": link_id,
+                "ip_address": ip_addr,
+                "netmask": netmask,
+                "description": description,
+            }
+
+            node_obj.interfaces.push(link_data)
+
+        }
+
+        console.log(node_obj)
+
+
+    }
+
+
+    function makeLinks() {
+        let link_count = $('#LINK_COUNT').val();
+
+        if (link_count > 0) {
+
+            $("#LINK_ROWS").empty()
+
+            for (i = 0; i < link_count; i++) {
+                let count = i + 1;
+
+                $('#LINK_ROWS').append(
+                    `        <hr id="LINK_SEP">
+                            <div class="row">
+
+                            <div class="col-6">
+                                <input type="text" class="form-control mb-2" id="${count}_LINK_ID"
+                                       placeholder="LinkID">
+
+                                <input type="text" class="form-control mb-2" id="${count}_DESCRIPTION"
+                                       placeholder=Description">
+                            </div>
+
+                            <div class="col-6">
+                                <input type="text" class="form-control mb-2" id="${count}_IP_ADDR"
+                                       placeholder="IP Address">
+
+                                <input type="text" class="form-control mb-2" id="${count}_NETMASK"
+                                       placeholder="Netmask">
+                            </div>
+                            </div>
+
+
+
+                `)
+
+                console.log("Test")
+            }
+
+
+        }
+
+
+        if (link_count == 0) {
+            $("#LINK_ROWS").empty()
+        }
+
+
+    }
+
+    function makeLinkCount(link_count) {
+        for (i = 0; i < link_count; i++) {
+
+            $('#LINK_COUNT').append(
+                `<option value=${i + 1}>${i + 1}</option>`
+            )
+            {#<option value="1">1</option>#}
+        }
+
+    }
+
+    $('document').ready(function () {
+        makeLinkCount(12)
+    })
+</script>

@@ -1,0 +1,13 @@
+input[id^='_IP_ADDR'],
+input[id^='_LINK_ID'],
+input[id^='_NETMASK'],
+label,
+input[id^='_DESCRIPTION']  {
+    /*width: 60%;*/
+    /*display: inline-block;*/
+}
+
+#LINK_SEP {
+    /*color: #1c7430;*/
+    border-top: 3px dot-dot-dash #ba8b00;
+}

@@ -1,7 +1,7 @@
 import json
 from functools import wraps
 
-from flask import Flask, jsonify, render_template, Response
+from flask import Flask, jsonify, render_template, Response, request
 from flask_restful import Api
 from mongoengine import connect
 
@@ -23,8 +23,12 @@ def index():
     return render_template("index.jinja2")
 
 
-@app.route("/add_node")
+@app.route("/add_node", methods=['POST', 'GET'])
 def add_node():
+    if request.method == "post":
+        pass
+
+
     return render_template("add_node.j2")
 
 
