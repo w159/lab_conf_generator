@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <link rel="stylesheet" href="../static/bootstrap/dist/css/bootstrap.min.css">
+    {#    <script src="../static/jquery/dist/jquery.js"></script>#}
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+            integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+            integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+            crossorigin="anonymous"></script>
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <title>LCG</title>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row">
+
+    </div>
+    <div class="row">
+        <div class="col-6 border-right text-center justify-content-center">
+            <h3>Devices</h3>
+            <div class="row p-2 m-2">
+
+                <button class="btn btn-primary" onclick="addNode()">Add</button>
+                <button class="btn btn-danger ml-3">Delete</button>
+            </div>
+
+            <div class="row">
+
+                <div class="col">
+                    <div class="list-group"  id="NODE_LIST">
+
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+        <div class="col-6 justify-content-start">
+            <h3 class="text-center">Configuration</h3>
+            <button class="btn btn-secondary">Base Config</button>
+            <button class="btn btn-secondary">BGP Config</button>
+            <div class="row p-3">
+
+                <div class="col">
+                    <h4 class="text-center">BaseConfig</h4>
+
+                    <div class="form-group">
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Node Type
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="#">Action</a>
+                                <a class="dropdown-item" href="#">Another action</a>
+                                <a class="dropdown-item" href="#">Something else here</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="Hostname">Hostname</label>
+                        <input type="text" class="form-control" id="HOSTNAME"
+                               placeholder="Another input placeholder">
+                    </div>
+
+
+                </div>
+                <div class="col">
+                    <h3>Management Config:</h3>
+                    <div class="form-group">
+                        <label for="mgmt_link_id">MGMT Interface:</label>
+                        <input type="text" class="form-control" id="MGMT_LINK_ID"
+                               placeholder="ex.(Gi1 or Gi0/0/0/0)">
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col">
+                                <label for="mgmt_ip_addr">IP Address</label>
+                                <input type="text" class="form-control" id="MGMT_IP_ADDRESS"
+                                       placeholder="Hostname">
+                            </div>
+                            <div class="col">
+                                <label for="mgmt_net_mask">NetMask:</label>
+                                <input type="text" class="form-control" id="MGMT_NETMASK"
+                                       placeholder="ex.(255.255.255.0)">
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="row border-top p-3">
+                <div class="col">
+                    <h4 class="text-center">Interface Config</h4>
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Link Count
+                        </button>
+
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="#">1</a>
+                            <a class="dropdown-item" href="#">2</a>
+                            <a class="dropdown-item" href="#">3</a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <label for="NodeType">Link ID:</label>
+                            <input type="text" class="form-control" id="link_id"
+                                   placeholder="Node Type">
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+</div>
+</div>
+
+<script>
+    function addNode() {
+        window.open("/add_node")
+
+    }
+
+    function Update(hostname) {
+
+        axios.get(`http://127.0.0.1:80/api/v1/node/${hostname}`).then(function (resp) {
+
+            let node_data = JSON.parse(resp.data)
+
+
+            $('#NODE_LIST *').removeClass('active');
+
+            let HOSTNAME = node_data.hostname;
+            let MGMT_LINK_ID = node_data.management.link_id;
+
+            $('#HOSTNAME').val(HOSTNAME);
+            $('#MGMT_LINK_ID').val(MGMT_LINK_ID);
+            $('#MGMT_IP_ADDRESS').val(node_data.management.ip_address);
+            $('#MGMT_NETMASK').val(node_data.management.netmask);
+            $(`#${HOSTNAME}`).addClass("active")
+
+        })
+
+    }
+
+    $('document').ready(function () {
+
+        let API_HOST = "127.0.0.1";
+        let API_PORT = "80";
+
+
+        axios.get(`http://${API_HOST}:${API_PORT}/api/v1/nodes`).then(function (resp) {
+            nodes = resp.data
+
+
+            nodes.forEach(node => {
+                var node_obj = JSON.parse(node)
+
+                $('#NODE_LIST').append(
+                    `<a href="#" id="${node_obj.hostname}" onclick="Update('${node_obj.hostname}')" class="list-group-item list-group-item-action">${node_obj.hostname}</a>`
+                )
+            })
+
+
+        })
+
+    })
+</script>
+
+</body>
+</html>
