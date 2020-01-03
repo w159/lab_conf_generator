@@ -3,5 +3,6 @@
 
 
 # WebGUI
+TODO: Create Base jinja2 template and add inhertiance for each feature
 TODO:Implement Adding new BaseConfiguration to database
 TODO:Implement Deleting new BaseConfiguration to database
