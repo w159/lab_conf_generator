@@ -72,7 +72,6 @@ class ConfigGenerator:
             raise Exception("Class missing 'facts' name")
 
         data = self.template.render(**self.facts)
-
         return data
 
     def write(self):

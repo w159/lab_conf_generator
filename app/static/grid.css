@@ -1,0 +1,26 @@
+.container {
+    display: grid;
+    /*grid-template-rows: 50% 50%;*/
+    grid-template-columns: .5fr 2fr;
+    grid-column-gap: 1em;
+}
+
+.sidebar {
+    justify-content: center;
+    display: inline-grid;
+    /*padding-top: 5em;*/
+    /*padding-bottom: 5em;*/
+    background: darkblue;
+}
+.sidebar > a {
+    color: white;
+}
+
+/*.container > div:nth-child(odd){*/
+    /*background: #ddd;*/
+/*}*/
+
+/*.container > div {*/
+    /*background: #eee;*/
+    /*padding: 1em;*/
+/*}*/

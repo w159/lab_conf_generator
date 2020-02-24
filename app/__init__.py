@@ -22,6 +22,11 @@ connect(db='LCG', host='192.168.1.22', port=27017)
 def index():
     return render_template("index.jinja2")
 
+# --- Routes ---
+@app.route("/grid")
+def grid():
+    return render_template("grid.j2")
+
 
 @app.route("/add_node", methods=['POST', 'GET'])
 def add_node():
