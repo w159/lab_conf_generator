@@ -125,5 +125,56 @@ class MyTestCase(unittest.TestCase):
 
         self.assertIsInstance(result, str)
 
+    def test_ios_base_config_ipv6_address(self):
+        data = {
+            "hostname": "BITS-TEST",
+            "management": {
+                "link_id": "loopback0",
+                "ip_address": "10.0.0.1",
+                "netmask": "255.255.255.255"
+            },
+            "interfaces": [
+                {
+                    "link_id": "GigabitEthernet0/0/0/0",
+                    "bandwidth": "100",
+                    "description": "Link to CSR2-PE",
+                    "ip_address": "10.1.2.1",
+                    "netmask": "255.255.255.252",
+                    "ipv6_addresses": [
+                        {
+                            "ipv6_address": "2001:fc80:1:2::1/64",
+
+                        },
+                        {
+                            "ipv6_address": "dhcp"
+                        },
+                        {
+                            "eui_64": "fe80:1:2::/64"
+                        },
+                        {
+                            "link_local": "fe80:1:2::1",
+                        },
+                        {
+                            "anycast": "2001:fc80:1:2::1/64"
+                        }
+                    ]
+                },
+                {
+                    "link_id": "GigabitEthernet0/0/0/1",
+                    "bandwidth": "20",
+                    "description": "Link to CSR3-PE",
+                    "ip_address": "10.1.3.1",
+                    "netmask": "255.255.255.252"
+                }
+            ]
+        }
+
+        config_generator = ConfigGenerator()
+        config_generator.set_template("ios_base_node")
+        config_generator.set_facts(data)
+        result = config_generator.to_stdout()
+        print(result)
+        self.assertIsInstance(result, str)
+
 if __name__ == '__main__':
     unittest.main()

@@ -18,6 +18,22 @@ interface {{ interface.link_id }}
  {% if interface.bandwidth %}
  bandwidth {{ interface.bandwidth }}000
  {% endif %}
+ {% if interface.ipv6_addresses %}
+ {% for ipv6_data in interface.ipv6_addresses  %}
+ {% if ipv6_data.ipv6_address %}
+ ipv6 address {{ ipv6_data.ipv6_address }}
+ {% endif %}
+ {% if ipv6_data.eui_64 %}
+ ipv6 address {{ ipv6_data.eui_64 }} eui-64
+ {% endif %}
+ {% if ipv6_data.link_local %}
+ ipv6 address {{ ipv6_data.link_local }} link-local
+ {% endif %}
+ {% if ipv6_data.anycast %}
+ ipv6 address {{ ipv6_data.anycast }} anycast
+ {% endif %}
+ {% endfor %}
+ {% endif %}
  description {{ interface.description }}
  ip address {{ interface.ip_address }} {{ interface.netmask }}
  no shutdown
