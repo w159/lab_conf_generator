@@ -9,6 +9,9 @@ interface {{ management.link_id }}
 !
 {% for interface in interfaces %}
 interface {{ interface.link_id }}
+{% if interface.bandwidth %}
+ bandwidth {{ interface.bandwidth }}000
+{% endif %}
  description {{ interface.description }}
  ipv4 address {{ interface.ip_address }} {{ interface.netmask }}
     no shutdown

@@ -2,7 +2,8 @@ from marshmallow import Schema, fields
 
 
 class IOSInterfaceSchema(Schema):
-    link_id = fields.Str()
+    link_id = fields.Str(required=True)
+    bandwidth = fields.Str(description="Bandwidth of link, expressed in megabits per second")
     description = fields.Str()
     ip_address = fields.Str()
     netmask = fields.Str()

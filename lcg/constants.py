@@ -6,7 +6,7 @@ from lcg.models.te_tunnels import IOSTETunnelSchema, IOSExplicitPathSchema
 
 MAP_TEMPLATE_TYPES = {
     "ios_base_node": {
-        "template_file": "ios_base_config.j2",
+        "template_file": "ios/base_config.j2",
         "schema": IOSNodeSchema()
     },
     "ios_te_tunnels": {
@@ -35,7 +35,7 @@ MAP_TEMPLATE_TYPES = {
 
     },
     "xr_base_config": {
-        "template_file": "ios_xr/xr_base_config.j2",
+        "template_file": "ios_xr/base_config.j2",
         "schema": IOSNodeSchema()
     }
 

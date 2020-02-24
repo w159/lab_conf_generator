@@ -1,5 +1,4 @@
 # Core
-TODO: Add bandwidth to ios_xe and ios_xr base config
 TODO: Add IPv6 address to ios_xe and ios_xr base config
 TODO: Add vrf forwarding  to ios_xe base config
 TODO: Add vrf to ios_xr base config
