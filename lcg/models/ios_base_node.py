@@ -1,6 +1,6 @@
 from marshmallow import Schema, fields, validate
 
-from .base import BaseNode, BaseInterface
+from .base import BaseNode, BaseInterface, BaseSNMPv2
 
 OSPF_NETWORK_TYPES = [
     "point-to-point",
@@ -9,9 +9,15 @@ OSPF_NETWORK_TYPES = [
     "broadcast ",
 ]
 
+
+class IOSSNMPv2(BaseSNMPv2):
+    access_list = fields.Str()
+
+
 class IOSMessageDigest(Schema):
     key_id = fields.Str(required=True)
     val = fields.Str(required=True)
+
 
 class IOSInterfaceOSPFAuth(Schema):
     key_chain = fields.Str()
@@ -34,6 +40,7 @@ class IOSInterfaceMPLS(Schema):
     ldp = fields.Boolean(default=False)
     mpls_te = fields.Boolean(default=False)
 
+
 class IOSInterface(BaseInterface):
     ospf = fields.Nested(IOSInterfaceOSPF)
     mpls = fields.Nested(IOSInterfaceMPLS)
@@ -41,3 +48,4 @@ class IOSInterface(BaseInterface):
 
 class IOSNodeSchema(BaseNode):
     interfaces = fields.List(fields.Nested(IOSInterface))
+    snmpv2 = fields.List(fields.Nested(IOSSNMPv2))

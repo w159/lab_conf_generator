@@ -1,5 +1,6 @@
 from marshmallow import Schema, fields
 
+from .snmp import BaseSNMPv2, BaseSNMPv3
 from .validators import IPValidator
 
 
@@ -29,4 +30,6 @@ class BaseNode(Schema):
     node_type = fields.Str()
     hostname = fields.Str()
     domain = fields.Str()
+    snmpv2 = fields.List(fields.Nested(BaseSNMPv2))
+    snmpv3 = fields.List(fields.Nested(BaseSNMPv3))
     interfaces = fields.List(fields.Nested(BaseInterface))

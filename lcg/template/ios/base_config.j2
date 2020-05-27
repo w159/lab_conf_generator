@@ -1,5 +1,4 @@
 {# TODO: Add IPv6 routing support  #}
-{# TODO: Add IPv6 address support, Add abililty to add mulitple IPv6 addresses to interface  #}
 {# TODO: Add Login Banner  #}
 {# TODO: Change all vars with options to use dict style variable access #}
 enable
@@ -9,17 +8,65 @@ hostname {{ hostname }}
 no ip domain-lookup
 !
 {% if domain %}
- ip domain name {{ domain }}
+ip domain name {{ domain }}
 {% endif %}
 !
+{% if snmpv2 %}
+{% for fact in snmpv2 %}
+snmp-server community {{ fact.community }} {{ fact.group_type }} {{ fact.access_list }}
+{% endfor %}
+{% endif %}
+!
+{% if snmpv3 %}
+{% for snmpv3_config in snmpv3 %}
+{% if snmpv3_config.mode == "noAuthNoPriv" %}
+snmp-server group {{ snmpv3_config.group_name }} v3 noauth
+snmp-server user {{ snmpv3_config.username }} {{ snmpv3_config.group_name }} remote {{ snmpv3_config.peer }}
+!
+{% endif %}
+{% if snmpv3_config.mode == "AuthNoPriv" %}
+snmp-server group {{ snmpv3_config.group_name }} v3 auth
+snmp-server user {{ snmpv3_config.username }} {{ snmpv3_config.group_name }} remote {{ snmpv3_config.peer }} v3 auth {{ snmpv3_config.auth_alg }} {{ snmpv3_config.auth_pw }}
+!
+{% endif %}
+{% if snmpv3_config.mode == "AuthPriv" %}
+snmp-server group {{ snmpv3_config.group_name }} v3 auth
+snmp-server user {{ snmpv3_config.username }} {{ snmpv3_config.group_name }} remote {{ snmpv3_config.peer }} v3 auth {{ snmpv3_config.auth_alg }} {{ snmpv3_config.auth_pw }}
+{% if  snmpv3_config.priv_alg  == "aes_256" %}
+snmp-server user {{ snmpv3_config.username }} {{ snmpv3_config.group_name }} remote {{ snmpv3_config.peer }} v3 auth {{ snmpv3_config.auth_alg }} {{ snmpv3_config.auth_pw }} priv aes 256 {{ snmpv3_config.priv_pw }}
+!
+{% endif %}
+{% if  snmpv3_config.priv_alg  == "aes_192" %}
+snmp-server user {{ snmpv3_config.username }} {{ snmpv3_config.group_name }} remote {{ snmpv3_config.peer }} v3 auth {{ snmpv3_config.auth_alg }} {{ snmpv3_config.auth_pw }} priv aes 192 {{ snmpv3_config.priv_pw }}
+!
+{% endif %}
+{% if  snmpv3_config.priv_alg  == "aes_128" %}
+snmp-server user {{ snmpv3_config.username }} {{ snmpv3_config.group_name }} remote {{ snmpv3_config.peer }} v3 auth {{ snmpv3_config.auth_alg }} {{ snmpv3_config.auth_pw }} priv aes 128 {{ snmpv3_config.priv_pw }}
+!
+{% endif %}
+{% if  snmpv3_config.priv_alg  == "des" %}
+snmp-server user {{ snmpv3_config.username }} {{ snmpv3_config.group_name }} remote {{ snmpv3_config.peer }} v3 auth {{ snmpv3_config.auth_alg }} {{ snmpv3_config.auth_pw }} priv des {{ snmpv3_config.priv_pw }}
+!
+{% endif %}
+{% if  snmpv3_config.priv_alg  == "3des" %}
+snmp-server user {{ snmpv3_config.username }} {{ snmpv3_config.group_name }} remote {{ snmpv3_config.peer }} v3 auth {{ snmpv3_config.auth_alg }} {{ snmpv3_config.auth_pw }} priv 3des {{ snmpv3_config.priv_pw }}
+!
+{% endif %}
+{% endif %}
+{% endfor %}
+{% endif %}
 !
 {% for interface in interfaces %}
 interface {{ interface.link_id }}
 {% if interface.dot1q  %}
  encapsulation dot1Q {{ interface.dot1q }}
 {% endif %}
+{% if interface.description %}
  description {{ interface.description }}
+{% endif %}
+{% if interface.bandwidth %}
  bandwidth {{ interface.bandwidth }}000
+{% endif %}
 {% if interface.mpls %}
 {% if interface.mpls.ldp %}
  mpls ip

@@ -2,6 +2,43 @@
   "node_type": "ios_rtr",
   "hostname": "R1-CA-CORE",
   "domain": "bits.local",
+  "snmpv3": [
+    {
+      "mode": "noAuthNoPriv",
+      "username": "CISCO_MGMT1",
+      "group_name": "CISCO_MGMT_GRP1",
+      "peer": "10.0.0.1"
+    },
+    {
+      "mode": "AuthNoPriv",
+      "username": "CISCO_MGMT2",
+      "group_name": "CISCO_MGMT_GRP2",
+      "peer": "10.0.0.1",
+      "auth_alg": "md5",
+      "auth_pw": "033bd94b1168d7e4f0d644c3c95e35bf"
+    },
+    {
+      "mode": "AuthPriv",
+      "username": "CISCO_MGMT3",
+      "group_name": "CISCO_MGMT_GRP3",
+      "peer": "10.0.0.1",
+      "auth_alg": "md5",
+      "auth_pw": "033bd94b1168d7e4f0d644c3c95e35bf",
+      "priv_alg": "aes_192",
+      "priv_pw": "033bd94b1168d7e4f0d644c3c95e35bf"
+    }
+  ],
+  "snmpv2": [
+    {
+      "community": "BITS_RW",
+      "group_type": "rw",
+      "access_list": "CORE_MGMT"
+    },
+    {
+      "community": "BITS_RO",
+      "group_type": "ro"
+    }
+  ],
   "interfaces": [
     {
       "link_id": "lo0",
