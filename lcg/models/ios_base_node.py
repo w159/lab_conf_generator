@@ -1,31 +1,43 @@
-from marshmallow import Schema, fields
+from marshmallow import Schema, fields, validate
+
+from .base import BaseNode, BaseInterface
+
+OSPF_NETWORK_TYPES = [
+    "point-to-point",
+    "point-to-multipoint",
+    "non-broadcast ",
+    "broadcast ",
+]
+
+class IOSMessageDigest(Schema):
+    key_id = fields.Str(required=True)
+    val = fields.Str(required=True)
+
+class IOSInterfaceOSPFAuth(Schema):
+    key_chain = fields.Str()
+    key = fields.Str()
+    message_digest = fields.List(fields.Nested(IOSMessageDigest))
+    is_null = fields.Boolean(default=False)
 
 
-class IPV6Address(Schema):
-    ipv6_address = fields.Str()
-    eui_64 = fields.Str()
-    link_local = fields.Str()
-    anycast = fields.Str()
+class IOSInterfaceOSPF(Schema):
+    p_id = fields.Str(required=True)
+    area_id = fields.Str(required=True)
+    network_type = fields.Str(default="point-to-point", validate=validate.OneOf(OSPF_NETWORK_TYPES))
+    priority = fields.Str(default=1)
+    is_shutdown = fields.Boolean(default=False)
+    mtu_ignore = fields.Boolean(default=False)
+    auth = fields.Nested(IOSInterfaceOSPFAuth)
 
 
-class IOSInterfaceSchema(Schema):
-    link_id = fields.Str(required=True)
-    bandwidth = fields.Str(description="Bandwidth of link, expressed in megabits per second")
-    description = fields.Str()
-    ip_address = fields.Str()
-    netmask = fields.Str()
-    ipv6_addresses = fields.List(fields.Nested(IPV6Address))
+class IOSInterfaceMPLS(Schema):
+    ldp = fields.Boolean(default=False)
+    mpls_te = fields.Boolean(default=False)
+
+class IOSInterface(BaseInterface):
+    ospf = fields.Nested(IOSInterfaceOSPF)
+    mpls = fields.Nested(IOSInterfaceMPLS)
 
 
-class IOSManagementSchema(Schema):
-    link_id = fields.Str()
-    description = fields.Str()
-    ip_address = fields.Str()
-    netmask = fields.Str()
-
-
-class IOSNodeSchema(Schema):
-    node_type = fields.Str()
-    hostname = fields.Str()
-    management = fields.Nested(IOSManagementSchema)
-    interfaces = fields.List(fields.Nested(IOSInterfaceSchema))
+class IOSNodeSchema(BaseNode):
+    interfaces = fields.List(fields.Nested(IOSInterface))

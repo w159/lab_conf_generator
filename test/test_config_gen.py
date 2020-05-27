@@ -15,7 +15,7 @@ class MyTestCase(unittest.TestCase):
         config_generator.set_output_file("../output/test_ios_base_node.txt")
         config_generator.set_facts(data_ios_base_node)
 
-        result = config_generator.to_stdout()
+        result = config_generator.render()
 
         self.assertIsInstance(result, str)
 
@@ -27,7 +27,7 @@ class MyTestCase(unittest.TestCase):
                                            facts=data_ios_bgp_policy,
                                            output_file="../output/test_ios_bgp_policy.txt")
 
-        result = config_generator.to_stdout()
+        result = config_generator.render()
 
         self.assertIsInstance(result, str)
 
@@ -39,7 +39,7 @@ class MyTestCase(unittest.TestCase):
                                      template_type="ios_vpls",
                                      output_file="../output/test_ios_vpls"
                                      )
-        result = config_gen.to_stdout()
+        result = config_gen.render()
 
 
         self.assertIsInstance(result, str)
@@ -83,7 +83,7 @@ class MyTestCase(unittest.TestCase):
         config_generator = ConfigGenerator()
         config_generator.set_template("ios_base_node")
         config_generator.set_facts(data)
-        result = config_generator.to_stdout()
+        result = config_generator.render()
 
         self.assertIsInstance(result, str)
 
@@ -121,7 +121,7 @@ class MyTestCase(unittest.TestCase):
         config_generator.set_template("xr_base_config")
         config_generator.set_facts(data)
 
-        result = config_generator.to_stdout()
+        result = config_generator.render()
 
         self.assertIsInstance(result, str)
 
@@ -172,8 +172,7 @@ class MyTestCase(unittest.TestCase):
         config_generator = ConfigGenerator()
         config_generator.set_template("ios_base_node")
         config_generator.set_facts(data)
-        result = config_generator.to_stdout()
-        print(result)
+        result = config_generator.render()
         self.assertIsInstance(result, str)
 
 if __name__ == '__main__':

@@ -17,12 +17,16 @@ class ConfigGenerator:
             self.template_file = self._template_opts.get("template_file")
 
         self.output_file = kwargs.get("output_file", None)
+
         self.facts = kwargs.get("facts", None)
 
         if self.template_file:
             self.template = _open_template(self.template_file)
 
     def read_json(self, json_file) -> bool:
+        """
+            Opens JSON file and stores contents in memory
+        """
         try:
             data = _open_json_file(json_file)
             self.facts = data
@@ -64,7 +68,12 @@ class ConfigGenerator:
         except Exception:
             raise
 
-    def to_stdout(self):
+    def render(self):
+        """
+        Returns String representation of rendered template.
+
+        :return:
+        """
         if not self.template:
             raise Exception("Class missing 'template' name")
 

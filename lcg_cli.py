@@ -86,7 +86,7 @@ def main():
         config_gen = _process_ios_base_config(data, output_filename)
 
         if args.verbose:
-            print(config_gen.to_stdout())
+            print(config_gen.render())
 
         print(f"{data['hostname']} Configuration Generated: {output_filename}.")
         exit()

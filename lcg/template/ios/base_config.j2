@@ -8,35 +8,70 @@ hostname {{ hostname }}
 !
 no ip domain-lookup
 !
-{% if management %}
-interface {{ management.link_id }}
- ip address {{ management.ip_address }} {{ management.netmask }}
+{% if domain %}
+ ip domain name {{ domain }}
 {% endif %}
+!
 !
 {% for interface in interfaces %}
 interface {{ interface.link_id }}
- {% if interface.bandwidth %}
- bandwidth {{ interface.bandwidth }}000
- {% endif %}
- {% if interface.ipv6_addresses %}
- {% for ipv6_data in interface.ipv6_addresses  %}
- {% if ipv6_data.ipv6_address %}
- ipv6 address {{ ipv6_data.ipv6_address }}
- {% endif %}
- {% if ipv6_data.eui_64 %}
- ipv6 address {{ ipv6_data.eui_64 }} eui-64
- {% endif %}
- {% if ipv6_data.link_local %}
- ipv6 address {{ ipv6_data.link_local }} link-local
- {% endif %}
- {% if ipv6_data.anycast %}
- ipv6 address {{ ipv6_data.anycast }} anycast
- {% endif %}
- {% endfor %}
- {% endif %}
+{% if interface.dot1q  %}
+ encapsulation dot1Q {{ interface.dot1q }}
+{% endif %}
  description {{ interface.description }}
- ip address {{ interface.ip_address }} {{ interface.netmask }}
+ bandwidth {{ interface.bandwidth }}000
+{% if interface.mpls %}
+{% if interface.mpls.ldp %}
+ mpls ip
+{%  endif %}
+{% if interface.mpls.mpls_te %}
+ mpls traffic-eng tunnels
+{%  endif %}
+{% endif %}
+{% for ipv4 in interface.ipv4_addrs %}
+{% if loop.index == 1 %}
+ ip address {{ ipv4.address }} {{ ipv4.netmask }}
+{% endif %}
+{% if loop.index > 1 %}
+ ip address {{ ipv4.address }} {{ ipv4.netmask }} secondary
+{% endif %}
+{% endfor %}
+{% for ipv6 in interface.ipv6_addrs %}
+{% if ipv6.ipv6_address %}
+ ipv6 address {{ ipv6.ipv6_address }}
+{% endif %}
+{% if ipv6.eui_64 %}
+ ipv6 address {{ ipv6.eui_64 }} eui_64
+{% endif %}
+{% if ipv6.link_local %}
+ ipv6 address {{ ipv6.link_local }} link_local
+{% endif %}
+{% if ipv6.anycast %}
+ ipv6 address {{ ipv6.anycast }} anycast
+{% endif %}
+{% if interface.ospf %}
+ ip ospf {{ interface.ospf.p_id }} area {{ interface.ospf.area_id }}
+ ip ospf network {{ interface.ospf.network_type }}
+ ip ospf priority {{ interface.ospf.priority }}
+{% if interface.ospf.auth.is_null %}
+ ip ospf authentication null
+{% endif %}
+{% if interface.ospf.auth.key %}
+ ip ospf authentication
+ ip ospf authentication-key {{ interface.ospf.auth.key }}
+{%  endif %}
+{% if interface.ospf.auth.message_digest %}
+ ip ospf authentication message-digest
+{% for md in interface.ospf.auth.message_digest %}
+ ip ospf message-digest-key {{ md.key_id }} md5 {{ md.val }}
+{% endfor %}
+{% endif %}
+{% if interface.ospf.auth.key_chain %}
+ ip ospf authentication key-chain {{ interface.ospf.auth.key_chain }}
+{% endif %}
+{% endif %}
  no shutdown
+{% endfor %}
 !
 {% endfor %}
 line con 0

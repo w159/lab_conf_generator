@@ -9,6 +9,10 @@ MAP_TEMPLATE_TYPES = {
         "template_file": "ios/base_config.j2",
         "schema": IOSNodeSchema()
     },
+    "ios_rtr": {
+        "template_file": "ios/base_config.j2",
+        "schema": IOSNodeSchema()
+    },
     "ios_te_tunnels": {
         "template_file": "ios_te_tunnel.j2",
         "schema": IOSTETunnelSchema()

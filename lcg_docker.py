@@ -5,14 +5,13 @@ from lcg.controllers.config_gen import ConfigGenerator
 
 
 def ios_base_config(data):
-    config_gen = ConfigGenerator(template_type="ios_base_node",
-                                 facts=data
-                                 )
+    cg = ConfigGenerator(template_type="ios_rtr")
+    cg.set_facts(data)
 
     print("########################")
     print(f'\t{data.get("hostname")}')
     print("########################")
-    print(config_gen.to_stdout())
+    print(cg.render())
     print("########################")
     print("\tComplete")
     print("########################")
@@ -26,7 +25,7 @@ def xr_base_config(data):
     print("########################")
     print(f'\t{data.get("hostname")}')
     print("########################")
-    print(config_gen.to_stdout())
+    print(config_gen.render())
     print("########################")
     print("\tComplete")
     print("########################")
@@ -41,13 +40,13 @@ def _open_file(file_name):
 
 def main():
     parser = argparse.ArgumentParser(description='Byt3m3 Lab Configuration Generator')
-    parser.add_argument("--base_config", help="Generates Base Config for router")
+    parser.add_argument("--config", help="Generates Base Config for router")
 
     args = parser.parse_args()
 
-    if args.base_config:
-        data = _open_file(args.base_config)
-        if data.get("node_type") == "ios":
+    if args.config:
+        data = _open_file(args.config)
+        if data.get("node_type") == "ios_rtr":
             ios_base_config(data)
             exit(0)
 
