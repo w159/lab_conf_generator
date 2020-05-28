@@ -45,4 +45,4 @@ MAP_TEMPLATE_TYPES = {
 
 }
 
-TEMPLATE_SEARCH_PATHS = ["lcg/template", '../lcg/template']
+TEMPLATE_SEARCH_PATHS = ["lcg/template", '../lcg/template', '/lcg/template', "/app/lcg/template"]

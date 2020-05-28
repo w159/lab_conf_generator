@@ -4,7 +4,7 @@ import json
 from lcg.controllers.config_gen import ConfigGenerator
 
 
-def ios_base_config(data):
+def ios_base_config(data): 
     cg = ConfigGenerator(template_type="ios_rtr")
     cg.set_facts(data)
 
