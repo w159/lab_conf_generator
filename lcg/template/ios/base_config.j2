@@ -1,5 +1,4 @@
 {# TODO: Add IPv6 routing support  #}
-{# TODO: Add IPv6 address support, Add abililty to add mulitple IPv6 addresses to interface  #}
 {# TODO: Add Login Banner  #}
 {# TODO: Change all vars with options to use dict style variable access #}
 enable
@@ -8,35 +7,118 @@ hostname {{ hostname }}
 !
 no ip domain-lookup
 !
-{% if management %}
-interface {{ management.link_id }}
- ip address {{ management.ip_address }} {{ management.netmask }}
+{% if domain %}
+ip domain name {{ domain }}
+{% endif %}
+!
+{% if snmpv2 %}
+{% for fact in snmpv2 %}
+snmp-server community {{ fact.community }} {{ fact.group_type }} {{ fact.access_list }}
+{% endfor %}
+{% endif %}
+!
+{% if snmpv3 %}
+{% for snmpv3_config in snmpv3 %}
+{% if snmpv3_config.mode == "noAuthNoPriv" %}
+snmp-server group {{ snmpv3_config.group_name }} v3 noauth
+snmp-server user {{ snmpv3_config.username }} {{ snmpv3_config.group_name }} remote {{ snmpv3_config.peer }}
+!
+{% endif %}
+{% if snmpv3_config.mode == "AuthNoPriv" %}
+snmp-server group {{ snmpv3_config.group_name }} v3 auth
+snmp-server user {{ snmpv3_config.username }} {{ snmpv3_config.group_name }} remote {{ snmpv3_config.peer }} v3 auth {{ snmpv3_config.auth_alg }} {{ snmpv3_config.auth_pw }}
+!
+{% endif %}
+{% if snmpv3_config.mode == "AuthPriv" %}
+snmp-server group {{ snmpv3_config.group_name }} v3 auth
+snmp-server user {{ snmpv3_config.username }} {{ snmpv3_config.group_name }} remote {{ snmpv3_config.peer }} v3 auth {{ snmpv3_config.auth_alg }} {{ snmpv3_config.auth_pw }}
+{% if  snmpv3_config.priv_alg  == "aes_256" %}
+snmp-server user {{ snmpv3_config.username }} {{ snmpv3_config.group_name }} remote {{ snmpv3_config.peer }} v3 auth {{ snmpv3_config.auth_alg }} {{ snmpv3_config.auth_pw }} priv aes 256 {{ snmpv3_config.priv_pw }}
+!
+{% endif %}
+{% if  snmpv3_config.priv_alg  == "aes_192" %}
+snmp-server user {{ snmpv3_config.username }} {{ snmpv3_config.group_name }} remote {{ snmpv3_config.peer }} v3 auth {{ snmpv3_config.auth_alg }} {{ snmpv3_config.auth_pw }} priv aes 192 {{ snmpv3_config.priv_pw }}
+!
+{% endif %}
+{% if  snmpv3_config.priv_alg  == "aes_128" %}
+snmp-server user {{ snmpv3_config.username }} {{ snmpv3_config.group_name }} remote {{ snmpv3_config.peer }} v3 auth {{ snmpv3_config.auth_alg }} {{ snmpv3_config.auth_pw }} priv aes 128 {{ snmpv3_config.priv_pw }}
+!
+{% endif %}
+{% if  snmpv3_config.priv_alg  == "des" %}
+snmp-server user {{ snmpv3_config.username }} {{ snmpv3_config.group_name }} remote {{ snmpv3_config.peer }} v3 auth {{ snmpv3_config.auth_alg }} {{ snmpv3_config.auth_pw }} priv des {{ snmpv3_config.priv_pw }}
+!
+{% endif %}
+{% if  snmpv3_config.priv_alg  == "3des" %}
+snmp-server user {{ snmpv3_config.username }} {{ snmpv3_config.group_name }} remote {{ snmpv3_config.peer }} v3 auth {{ snmpv3_config.auth_alg }} {{ snmpv3_config.auth_pw }} priv 3des {{ snmpv3_config.priv_pw }}
+!
+{% endif %}
+{% endif %}
+{% endfor %}
 {% endif %}
 !
 {% for interface in interfaces %}
 interface {{ interface.link_id }}
- {% if interface.bandwidth %}
- bandwidth {{ interface.bandwidth }}000
- {% endif %}
- {% if interface.ipv6_addresses %}
- {% for ipv6_data in interface.ipv6_addresses  %}
- {% if ipv6_data.ipv6_address %}
- ipv6 address {{ ipv6_data.ipv6_address }}
- {% endif %}
- {% if ipv6_data.eui_64 %}
- ipv6 address {{ ipv6_data.eui_64 }} eui-64
- {% endif %}
- {% if ipv6_data.link_local %}
- ipv6 address {{ ipv6_data.link_local }} link-local
- {% endif %}
- {% if ipv6_data.anycast %}
- ipv6 address {{ ipv6_data.anycast }} anycast
- {% endif %}
- {% endfor %}
- {% endif %}
+{% if interface.dot1q  %}
+ encapsulation dot1Q {{ interface.dot1q }}
+{% endif %}
+{% if interface.description %}
  description {{ interface.description }}
- ip address {{ interface.ip_address }} {{ interface.netmask }}
+{% endif %}
+{% if interface.bandwidth %}
+ bandwidth {{ interface.bandwidth }}000
+{% endif %}
+{% if interface.mpls %}
+{% if interface.mpls.ldp %}
+ mpls ip
+{%  endif %}
+{% if interface.mpls.mpls_te %}
+ mpls traffic-eng tunnels
+{%  endif %}
+{% endif %}
+{% for ipv4 in interface.ipv4_addrs %}
+{% if loop.index == 1 %}
+ ip address {{ ipv4.address }} {{ ipv4.netmask }}
+{% endif %}
+{% if loop.index > 1 %}
+ ip address {{ ipv4.address }} {{ ipv4.netmask }} secondary
+{% endif %}
+{% endfor %}
+{% for ipv6 in interface.ipv6_addrs %}
+{% if ipv6.ipv6_address %}
+ ipv6 address {{ ipv6.ipv6_address }}
+{% endif %}
+{% if ipv6.eui_64 %}
+ ipv6 address {{ ipv6.eui_64 }} eui_64
+{% endif %}
+{% if ipv6.link_local %}
+ ipv6 address {{ ipv6.link_local }} link_local
+{% endif %}
+{% if ipv6.anycast %}
+ ipv6 address {{ ipv6.anycast }} anycast
+{% endif %}
+{% if interface.ospf %}
+ ip ospf {{ interface.ospf.p_id }} area {{ interface.ospf.area_id }}
+ ip ospf network {{ interface.ospf.network_type }}
+ ip ospf priority {{ interface.ospf.priority }}
+{% if interface.ospf.auth.is_null %}
+ ip ospf authentication null
+{% endif %}
+{% if interface.ospf.auth.key %}
+ ip ospf authentication
+ ip ospf authentication-key {{ interface.ospf.auth.key }}
+{%  endif %}
+{% if interface.ospf.auth.message_digest %}
+ ip ospf authentication message-digest
+{% for md in interface.ospf.auth.message_digest %}
+ ip ospf message-digest-key {{ md.key_id }} md5 {{ md.val }}
+{% endfor %}
+{% endif %}
+{% if interface.ospf.auth.key_chain %}
+ ip ospf authentication key-chain {{ interface.ospf.auth.key_chain }}
+{% endif %}
+{% endif %}
  no shutdown
+{% endfor %}
 !
 {% endfor %}
 line con 0
