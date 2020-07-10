@@ -1,9 +1,14 @@
 import json
 import jinja2
+import os
 
-from lcg.constants import MAP_TEMPLATE_TYPES, TEMPLATE_SEARCH_PATHS
+from lcg.constants import MAP_TEMPLATE_TYPES
+from lcg.app.utils import make_file_path
 
-templateLoader = jinja2.FileSystemLoader(searchpath=TEMPLATE_SEARCH_PATHS)
+my_path = os.path.abspath(os.path.dirname(__file__))
+path = os.path.join(my_path, "../template")
+
+templateLoader = jinja2.FileSystemLoader(searchpath=[path])
 templateEnv = jinja2.Environment(loader=templateLoader, trim_blocks=True, lstrip_blocks=True)
 
 
@@ -114,6 +119,7 @@ def _open_json_file(file_name):
 
 
 def _open_template(template_name):
+    path = make_file_path(__file__, template_name)
     template = templateEnv.get_template(template_name)
     return template
 

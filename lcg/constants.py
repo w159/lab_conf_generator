@@ -3,6 +3,7 @@ from lcg.models.ios_bgp import IOSBGPSessionSchema, IOSBGPPolicySchema
 from lcg.models.ios_evpn import IOSEVPNSchema
 from lcg.models.ios_vpls import IOSVPLSSchema
 from lcg.models.te_tunnels import IOSTETunnelSchema, IOSExplicitPathSchema
+import os
 
 MAP_TEMPLATE_TYPES = {
     "ios_base_node": {
@@ -44,5 +45,3 @@ MAP_TEMPLATE_TYPES = {
     }
 
 }
-
-TEMPLATE_SEARCH_PATHS = ["lcg/template", '../lcg/template', '/lcg/template', "/app/lcg/template"]
