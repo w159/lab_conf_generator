@@ -1,0 +1,139 @@
+{
+  "opts": {
+    "lab_name": "",
+    "dev_name": "",
+    "resp_type": "text"
+  },
+  "data": {
+    "node_type": "",
+    "hostname": "",
+    "domain": "",
+    "snmpv3": [
+      {
+        "mode": "",
+        "username": "",
+        "group_name": "",
+        "peer": ""
+      },
+      {
+        "mode": "",
+        "username": "",
+        "group_name": "",
+        "peer": "",
+        "auth_alg": "",
+        "auth_pw": ""
+      },
+      {
+        "mode": "",
+        "username": "",
+        "group_name": "",
+        "peer": "",
+        "auth_alg": "",
+        "auth_pw": "",
+        "priv_alg": "",
+        "priv_pw": ""
+      }
+    ],
+    "snmpv2": [
+      {
+        "community": "",
+        "group_type": "",
+        "access_list": ""
+      }
+    ],
+    "interfaces": [
+      {
+        "link_id": "lo0",
+        "description": "",
+        "ipv4_addrs": [
+          {
+            "address": "",
+            "netmask": ""
+          }
+        ],
+        "ipv6_addrs": [
+          {
+            "ipv6_address": ""
+          }
+        ]
+      },
+      {
+        "link_id": "Gi1",
+        "bandwidth": "",
+        "description": "",
+        "mpls": {
+          "ldp": false,
+          "mpls_te": false
+        },
+        "ospf": {
+          "p_id": "1",
+          "area_id": "100",
+          "network_type": "point-to-point",
+          "priority": "0",
+          "auth": {
+            "message_digest": [
+              {
+                "key_id": "1",
+                "val": "033bd94b1168d7e4f0d644c3c95e35bf"
+              },
+              {
+                "key_id": "2",
+                "val": "033bd94b1168d7e4f0d644c3c95e35bf"
+              }
+            ]
+          }
+        },
+        "ipv4_addrs": [
+          {
+            "address": "",
+            "netmask": ""
+          }
+        ],
+        "ipv6_addrs": [
+          {
+            "ipv6_address": ""
+          }
+        ]
+      },
+      {
+        "link_id": "Gi1.99",
+        "dot1q": "99",
+        "bandwidth": "50",
+        "description": "R2",
+        "mpls": {
+          "ldp": true,
+          "mpls_te": true
+        },
+        "ospf": {
+          "p_id": "1",
+          "area_id": "100",
+          "network_type": "point-to-point",
+          "priority": "0",
+          "auth": {
+            "message_digest": [
+              {
+                "key_id": "1",
+                "val": "033bd94b1168d7e4f0d644c3c95e35bf"
+              },
+              {
+                "key_id": "2",
+                "val": "033bd94b1168d7e4f0d644c3c95e35bf"
+              }
+            ]
+          }
+        },
+        "ipv4_addrs": [
+          {
+            "address": "10.1.2.1",
+            "netmask": "255.255.255.255"
+          }
+        ],
+        "ipv6_addrs": [
+          {
+            "ipv6_address": "2001:1:2::1/64"
+          }
+        ]
+      }
+    ]
+  }
+}

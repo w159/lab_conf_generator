@@ -99,6 +99,7 @@ class ConfigGenerator:
             # _write_template(self.facts, self.template, self.output_file)
 
         else:
+
             raise Exception(validation_results)
 
 

@@ -1,0 +1,5 @@
+include requirements.txt
+recursive-include lcg/template/* *
+recursive-include lcg/app/templates *
+recursive-include lcg/app/static/*  *
+recursive-include lcg/app/resources/json_models  *.json
