@@ -15,6 +15,7 @@ class BaseConfigResource(Resource):
         args = request.args
 
         node_type = args.get("node_type")
+        return_type = args.get("return_type", "text")
 
         result = None
 
@@ -22,6 +23,13 @@ class BaseConfigResource(Resource):
             result = controller_ios_base_config(json_data)
 
         if isinstance(result, ControllerResult):
-            return make_text_response(result.data, result.msg, result.status)
+            if return_type == "text":
+                return make_text_response(result.data, result.msg, result.status)
 
-        return make_json_response(None, "Supported node_type", 400)
+            elif return_type == "json":
+                return make_json_response(result.data, result.msg, result.status)
+
+            elif return_type == "list":
+                return make_json_response(result.data.split("\n"), result.msg, result.status)
+
+        return make_json_response(None, "Unsupported node_type", 400)

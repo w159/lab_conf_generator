@@ -26,6 +26,16 @@ paths:
             enum:
               - ios_rtr
 
+        - in: query
+          description: Return Val type, default is text.
+          name: return_type
+          schema:
+            type: string
+            enum:
+              - text
+              - list
+              - json
+
       requestBody:
         content:
           application/json:
