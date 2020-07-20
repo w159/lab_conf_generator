@@ -1,6 +1,6 @@
 import unittest
 
-from lcg.controllers.config_gen import ConfigGenerator
+from lcg.generators import ConfigGenerator
 # VARs import for various tests.
 from test.vars import data_ios_vpls, data_ios_bgp_policy, data_ios_base_node
 

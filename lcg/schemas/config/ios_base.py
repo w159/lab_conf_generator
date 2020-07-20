@@ -1,6 +1,6 @@
 from marshmallow import Schema, fields, validate
 
-from .base import BaseNode, BaseInterface, BaseSNMPv2
+from lcg.schemas.config.base import BaseNode, BaseInterface, BaseSNMPv2
 
 OSPF_NETWORK_TYPES = [
     "point-to-point",

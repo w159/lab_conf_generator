@@ -1,6 +1,6 @@
 import argparse
 
-from lcg.app import app
+from lcg.api import app
 from lcg.env import DEBUG, APP_PORT, APP_HOST
 
 

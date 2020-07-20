@@ -5,13 +5,13 @@ from flask import Flask, jsonify, render_template, Response
 from flask_restful import Api
 from mongoengine import connect
 
-from lcg.app.models import BaseConfigDocument
-from lcg.app.resources import (
-    ConfigResource
+from lcg.api.models import BaseConfigDocument
+from lcg.api.resources import (
+    BaseConfigResource
 )
 from lcg.env import DB_HOST, DB_PORT, DB
-from .constants import STATUS_200_SUCCESS, JSON_RESPONSE_HEADERS
-from .utils import APIResponse
+from lcg.constants import STATUS_200_SUCCESS, JSON_RESPONSE_HEADERS
+from lcg.utils import APIResponse
 
 # ---- Flask Config ----
 app = Flask(__name__)
@@ -23,7 +23,7 @@ connect(db=DB, host=DB_HOST, port=DB_PORT)
 
 # --- API Registration ---
 
-api.add_resource(ConfigResource, "/api/v1/lcg/config")
+api.add_resource(BaseConfigResource, "/api/v1/lcg/config/base")
 
 
 # --- Routes ---

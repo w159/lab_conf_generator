@@ -2,9 +2,9 @@ import json
 import jinja2
 import os
 
-from lcg.constants import MAP_TEMPLATE_TYPES
-from lcg.app.utils import make_file_path
-
+from lcg.maps import MAP_TEMPLATE_TYPES
+from lcg.utils import make_file_path
+from lcg.exceptions import LCGSchemaValidationError
 my_path = os.path.abspath(os.path.dirname(__file__))
 path = os.path.join(my_path, "../template")
 
@@ -23,6 +23,8 @@ class ConfigGenerator:
 
         self.output_file = kwargs.get("output_file", None)
 
+        self.results = None
+
         self.facts = kwargs.get("facts", None)
 
         if self.template_file:
@@ -38,6 +40,12 @@ class ConfigGenerator:
             return True
         except Exception:
             raise
+
+    def generate(self, template_type, data):
+        self.set_template(template_type)
+        self.set_facts(data)
+
+        return self.render()
 
     def set_template(self, template_type):
 
@@ -68,7 +76,7 @@ class ConfigGenerator:
                 return True
 
             else:
-                raise Exception(validation_results)
+                raise LCGSchemaValidationError(validation_results)
 
         except Exception:
             raise
@@ -85,8 +93,9 @@ class ConfigGenerator:
         if not self.facts:
             raise Exception("Class missing 'facts' name")
 
-        data = self.template.render(**self.facts)
-        return data
+        self.results = self.template.render(**self.facts)
+
+        return self
 
     def write(self):
         if not self.template:

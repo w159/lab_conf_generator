@@ -1,0 +1,21 @@
+BaseConfig:
+  type: object
+  properties:
+    hostname:
+      type: string
+    domain:
+      type: string
+    snmpv2:
+      type: array
+      items:
+        $ref: 'base_snmp.yml#/BASESNMPv2'
+
+    snmpv3:
+      type: array
+      items:
+        $ref: 'base_snmp.yml#/BASESNMPv3'
+        
+    interfaces:
+      type: array
+      items:
+        $ref: 'base_interface.yml#/Interface'

@@ -1,0 +1,29 @@
+BASESNMPv2:
+  type: object
+  properties:
+    community:
+      type: string
+    group_type:
+      type: string
+    access_list:
+      type: string
+
+BASESNMPv3:
+  type: object
+  properties:
+    mode:
+      type: string
+    username:
+      type: string
+    group_name:
+      type: string
+    peer:
+      type: string
+    auth_alg:
+      type: string
+    priv_alg:
+      type: string
+    auth_pw:
+      type: string
+    priv_pw:
+      type: string

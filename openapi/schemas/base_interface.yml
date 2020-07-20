@@ -1,0 +1,28 @@
+IPv4Addr:
+  type: object
+  properties:
+    address:
+      type: string
+    netmask:
+      type: string
+
+Interface:
+  type: object
+  properties:
+    link_id:
+      type: string
+    description:
+      type: string
+    bandwidth:
+      type: string
+    ipv4_addrs:
+      type: array
+      items:
+        $ref: '#/IPv4Addr'
+    mpls:
+      type: object
+      properties:
+        ldp:
+          type: boolean
+        mpls_te:
+          type: boolean

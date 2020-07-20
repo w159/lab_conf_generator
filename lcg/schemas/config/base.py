@@ -1,7 +1,7 @@
 from marshmallow import Schema, fields
 
-from .snmp import BaseSNMPv2, BaseSNMPv3
-from .validators import IPValidator
+from lcg.schemas.snmp import BaseSNMPv2, BaseSNMPv3
+from lcg.schemas.validators import IPValidator
 
 
 class IPv6Addr(Schema):

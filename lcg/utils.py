@@ -1,6 +1,7 @@
-from lcg.app.constants import JSON_RESPONSE_HEADERS
+from lcg.constants import JSON_RESPONSE_HEADERS, TEXT_RESPONSE_HEADERS
 import json
 import os
+
 
 from flask import Response
 
@@ -38,3 +39,10 @@ def make_json_response(data: dict, msg, status_code, headers=None):
         headers = JSON_RESPONSE_HEADERS
 
     return Response(response=json.dumps({"data": data, "msg": msg}), status=status_code, headers=headers)
+
+
+def make_text_response(data: dict, msg, status_code, headers=None):
+    if not headers:
+        headers = TEXT_RESPONSE_HEADERS
+
+    return Response(response=data, status=status_code, headers=headers)
