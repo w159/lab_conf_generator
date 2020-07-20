@@ -1,6 +1,3 @@
-import json
-
-from flask import Response, jsonify
 from flask_restful import Resource, request
 from lcg.api.controllers.config import controller_ios_base_config, ControllerResult
 from lcg.utils import make_json_response, make_text_response
