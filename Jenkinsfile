@@ -54,24 +54,19 @@ pipeline {
         stage("Publishing to Docker Registry"){
             steps {
 
-                    withDockerRegistry(credentialsId: '5d7125e3-665c-41ff-88d1-269308e2b016') {
-                        // some block
-                        sh "docker push cbaxter1988/${python_package}"
+                withDockerRegistry(credentialsId: '5d7125e3-665c-41ff-88d1-269308e2b016', url: ' https://index.docker.io/v1/') {
+                    // some block
+                    sh "docker push cbaxter1988/${python_package}"
 
 
 
-                    }
-
-
-
-
-
+                }
             }
 
         }
 
 
-}
+    }
 
 }
 
