@@ -19,8 +19,8 @@ paths:
       '
       parameters:
         - in: query
-          description: Node type you would like generated.
-          name: node_type
+          description: template type you would like generated.
+          name: template_type
           schema:
             type: string
             enum:
