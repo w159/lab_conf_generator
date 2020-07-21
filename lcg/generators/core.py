@@ -41,8 +41,8 @@ class ConfigGenerator:
         except Exception:
             raise
 
-    def generate(self, template_type, data):
-        self.set_template(template_type)
+    def generate(self, data):
+        self.set_template(data['template_type'])
         self.set_facts(data)
 
         return self.render()

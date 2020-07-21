@@ -11,6 +11,7 @@ class MyTestCase(unittest.TestCase):
 
     def test_config_ios_base_node(self):
         data = {
+            "template_type": "ios_base_node",
             "hostname": "R1-CA-CORE",
             "domain": "bits.local",
             "snmpv3": [
@@ -226,7 +227,7 @@ class MyTestCase(unittest.TestCase):
 
         cg = ConfigGenerator()
 
-        cg.generate("ios_base_node", data)
+        cg.generate(data)
         self.assertIsInstance(cg.results, str)
 
 

@@ -11,12 +11,13 @@ class BaseConfigResource(Resource):
         json_data = request.json
         args = request.args
 
-        node_type = args.get("node_type")
+        template_type = args.get("template_type")
         return_type = args.get("return_type", "text")
 
         result = None
+        json_data['template_type'] = template_type
 
-        if node_type == "ios_rtr":
+        if template_type == "ios_base_node":
             result = controller_ios_base_config(json_data)
 
         if isinstance(result, ControllerResult):

@@ -2,6 +2,7 @@ from marshmallow import Schema, fields
 
 from lcg.schemas.snmp import BaseSNMPv2, BaseSNMPv3
 from lcg.schemas.validators import IPValidator
+from marshmallow.validate import OneOf
 
 
 class IPv6Addr(Schema):
@@ -13,7 +14,7 @@ class IPv6Addr(Schema):
 
 class IPv4Addr(Schema):
     address = fields.Str(required=True, validate=IPValidator())
-    netmask = fields.Str(required=True)
+    netmask = fields.Str(required=True, validate=IPValidator())
 
 
 class BaseInterface(Schema):
@@ -27,9 +28,9 @@ class BaseInterface(Schema):
 
 
 class BaseNode(Schema):
-    node_type = fields.Str()
-    hostname = fields.Str()
-    domain = fields.Str()
+    template_type = fields.Str(required=True)
+    hostname = fields.Str(required=True)
+    domain = fields.Str(required=True)
     snmpv2 = fields.List(fields.Nested(BaseSNMPv2))
     snmpv3 = fields.List(fields.Nested(BaseSNMPv3))
     interfaces = fields.List(fields.Nested(BaseInterface))
