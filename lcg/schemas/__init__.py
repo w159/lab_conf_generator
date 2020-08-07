@@ -6,3 +6,4 @@ from lcg.schemas.ios_evpn import *
 from lcg.schemas.te_tunnels import *
 from lcg.schemas.ios_vpls import *
 from lcg.schemas.config import *
+from lcg.schemas.linux import *
