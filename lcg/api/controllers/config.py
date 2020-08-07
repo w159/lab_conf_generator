@@ -11,7 +11,6 @@ def _process(template_type, params) -> ConfigGenerator:
 
     cg = ConfigGenerator()
 
-
     cg.generate(params)
 
     return cg
