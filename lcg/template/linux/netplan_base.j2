@@ -1,0 +1,19 @@
+network:
+  version: 2
+  ethernets:
+{% for interface in interfaces %}
+{{ interface.link_id }}:
+      addresses:
+{% for ipv4_addr in ipv4_addrs %}
+        - {{ ipv4_addr.address }} {{ ipv4_addr.netmask }}
+{% endfor %}
+    gateway4: 10.10.10.1
+    nameservers:
+          search: [lab.local]
+
+    addresses:[
+{% for ns in nameservers %}
+            {{  ns }}
+{% endfor %}
+            ]
+{% endfor %}

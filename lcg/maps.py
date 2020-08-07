@@ -5,7 +5,8 @@ from lcg.schemas import (
     IOSEVPNSchema,
     IOSTETunnelSchema,
     IOSExplicitPathSchema,
-    IOSVPLSSchema
+    IOSVPLSSchema,
+    NetplanSchema
 )
 
 import os
@@ -43,6 +44,10 @@ MAP_TEMPLATE_TYPES = {
     "xr_base_config": {
         "template_file": "ios_xr/base_config.j2",
         "schema": IOSNodeSchema()
+    },
+    "linux_netplan_base": {
+        "template_file": "linux/netplan_base.j2",
+        "schema": NetplanSchema()
     }
 
 }
