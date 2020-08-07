@@ -56,6 +56,7 @@ snmp-server user {{ snmpv3_config.username }} {{ snmpv3_config.group_name }} rem
 {% endfor %}
 {% endif %}
 !
+{% if interfaces %}
 {% for interface in interfaces %}
 interface {{ interface.link_id }}
 {% if interface.dot1q  %}
@@ -98,8 +99,12 @@ interface {{ interface.link_id }}
 {% endif %}
 {% if interface.ospf %}
  ip ospf {{ interface.ospf.p_id }} area {{ interface.ospf.area_id }}
+{% if interface.ospf.network %}
  ip ospf network {{ interface.ospf.network_type }}
+{% endif %}
+{% if interface.ospf.priority %}
  ip ospf priority {{ interface.ospf.priority }}
+{% endif %}
 {% if interface.ospf.auth.is_null %}
  ip ospf authentication null
 {% endif %}
@@ -121,6 +126,7 @@ interface {{ interface.link_id }}
 {% endfor %}
 !
 {% endfor %}
+{% endif %}
 line con 0
  exec-timeout 0 0
  logging synchronous
