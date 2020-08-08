@@ -7,7 +7,7 @@ from mongoengine import connect
 
 from lcg.api.models import BaseConfigDocument
 from lcg.api.resources import (
-    BaseConfigResource
+    ConfigIOSBaseResource
 )
 from lcg.env import DB_HOST, DB_PORT, DB
 from lcg.constants import STATUS_200_SUCCESS, JSON_RESPONSE_HEADERS
@@ -23,7 +23,7 @@ connect(db=DB, host=DB_HOST, port=DB_PORT)
 
 # --- API Registration ---
 
-api.add_resource(BaseConfigResource, "/api/v1/lcg/config/base")
+api.add_resource(ConfigIOSBaseResource, "/api/v1/lcg/config/ios/base")
 
 
 # --- Routes ---
