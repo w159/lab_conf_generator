@@ -1,11 +1,13 @@
 from lcg.api.controllers import validate_params
 from lcg.generators import ConfigGenerator
-from lcg.schemas import IOSNodeSchema
+from lcg.schemas import IOSNodeSchema, NetplanSchema
 from lcg.api.controllers import ControllerResult
 
 
 def _process(template_type, params) -> ConfigGenerator:
-    res = validate_params(IOSNodeSchema, params)
+    _schema = MAP_TEMPLATE_TYPES.get(template_type).get('schema')
+
+    res = validate_params(_schema, params)
     if res.status != 200:
         return res
 

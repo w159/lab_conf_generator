@@ -2,7 +2,8 @@ import json
 
 
 def validate_params(schema, params):
-    schema = schema()
+    # schema = schema()
+    print(schema)
     validation_result = schema.validate(params)
     if validation_result:
         return ControllerResult(data=None, result=False, msg=f"Invalid Params: {validation_result}", status=406)
