@@ -2,6 +2,7 @@ from lcg.api.controllers import validate_params
 from lcg.generators import ConfigGenerator
 from lcg.schemas import IOSNodeSchema, NetplanSchema
 from lcg.api.controllers import ControllerResult
+from lcg.maps import MAP_TEMPLATE_TYPES
 
 
 def _process(template_type, params) -> ConfigGenerator:
@@ -19,11 +20,13 @@ def _process(template_type, params) -> ConfigGenerator:
 
 
 def controller_ios_base_config(params):
-    res = validate_params(IOSNodeSchema, params)
-    if res.status != 200:
-        return res
-
     cg = _process("ios_base_node", params)
+
+    return ControllerResult(data=cg.results, result=True, msg=f"Success", status=200)
+
+
+def controller_linux_netplan_base(params):
+    cg = _process("linux_netplan_base", params)
 
     return ControllerResult(data=cg.results, result=True, msg=f"Success", status=200)
 

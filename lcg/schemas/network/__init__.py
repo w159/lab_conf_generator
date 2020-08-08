@@ -12,5 +12,5 @@ class IPv6Addr(Schema):
 
 class IPv4Addr(Schema):
     address = fields.Str(required=True, validate=IPValidator())
-    netmask = fields.Str(required=True, validate=IPValidator())
+    netmask = fields.Str(validate=IPValidator())
     cidr = fields.Str(validate=Length(1, 32))
