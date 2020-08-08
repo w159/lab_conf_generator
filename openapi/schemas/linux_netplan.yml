@@ -1,0 +1,20 @@
+LinuxNetplanBasic:
+  type: object
+  properties:
+    interfaces:
+      type: array
+      items:
+        $ref: '#/LinuxInterface'
+
+
+LinuxInterface:
+  type: object
+  properties:
+    link_id:
+      type: string
+    gateway4:
+      type: string
+    addresses:
+      type: array
+      items:
+        type: string

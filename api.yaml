@@ -8,7 +8,7 @@ info:
 servers:
   - url: 'http://udev.bits.local:5002/api'
 paths:
-  /v1/lcg/config/base:
+  /v1/lcg/config/ios/base:
 
     post:
       tags:
@@ -22,9 +22,10 @@ paths:
           description: template type you would like generated.
           name: template_type
           schema:
+
             type: string
             enum:
-              - ios_rtr
+              - ios_base_node
 
         - in: query
           description: Return Val type, default is text.
@@ -41,7 +42,46 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/BaseConfig'
-              
+
+
+      responses:
+        '200':
+          description: OK
+  /v1/lcg/config/linux/netplan:
+
+    post:
+      tags:
+        - Config
+      summary: Generates Base Configurations.
+      description: '
+        Creates Base Configurations based on the node_type key.
+        '
+      parameters:
+        - in: query
+          description: template type you would like generated.
+          name: template_type
+          schema:
+            type: string
+            enum:
+              - linux_netplan_base
+
+        - in: query
+          description: Return Val type, default is text.
+          name: return_type
+          schema:
+            type: string
+            enum:
+              - text
+              - list
+              - json
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LinuxNetplanBase'
+
+
       responses:
         '200':
           description: OK
@@ -52,3 +92,5 @@ components:
   schemas:
     BaseConfig:
       $ref: 'openapi/schemas/base_config.yml#/BaseConfig'
+    LinuxNetplanBase:
+      $ref: 'openapi/schemas/linux_netplan.yml#/LinuxNetplanBasic'
