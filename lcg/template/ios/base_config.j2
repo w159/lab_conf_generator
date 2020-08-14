@@ -99,7 +99,7 @@ interface {{ interface.link_id }}
 {% endif %}
 {% if interface.ospf %}
  ip ospf {{ interface.ospf.p_id }} area {{ interface.ospf.area_id }}
-{% if interface.ospf.network %}
+{% if interface.ospf.network_type %}
  ip ospf network {{ interface.ospf.network_type }}
 {% endif %}
 {% if interface.ospf.priority %}
