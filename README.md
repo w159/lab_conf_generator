@@ -1,8 +1,9 @@
-# Lab Configuration Generator
+# Genesis Configuration Generator
 
-This tool is used to generate configurations for CLI based Network devices. The motivation for this tool came from the 
-need to rapidly generate configurations for devices that i use during my lab sessions. I have built a docker base CLI 
-as well as an RestFUL API interfaces that can interact with LCG tool.
+This tool is used to generate configurations for numerous types of devices and services. The goal of this service is to
+provide users the ability to quickly define their own configuration definition to later be used for rapid and consistent
+configuration generation. This tool also supports the ability to store configurations to an AWS S3 cloud. 
+
 
 Both the docker-cli and API utilize JSON models for input.  There are required model keys for each configuration request type. 
 
