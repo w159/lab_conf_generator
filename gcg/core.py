@@ -166,7 +166,7 @@ class GCG:
                                          aws_secret_access_key=AWS_SECRET_KEY
                                          )
 
-                temp_file = f'../lcg/.tmp/{task.name}.txt'
+                temp_file = f'../gcg/.tmp/{task.name}.txt'
                 with open(temp_file, 'w') as f:
                     f.write(task.rendered_data)
 
@@ -174,7 +174,7 @@ class GCG:
                 os.remove(temp_file)
 
             if store_local:
-                temp_file = f'../lcg/.tmp/{task.name}.txt'
+                temp_file = f'../gcg/.tmp/{task.name}.txt'
                 with open(temp_file, 'w') as f:
                     f.write(task.rendered_data)
 
