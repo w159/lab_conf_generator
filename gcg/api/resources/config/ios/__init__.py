@@ -1,0 +1,1 @@
+from gcg.api.resources.config.ios.base import *

@@ -1,1 +1,0 @@
-from lcg.schemas.config.linux.netplan import *
