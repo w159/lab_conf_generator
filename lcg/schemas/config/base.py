@@ -28,7 +28,6 @@ class BaseInterface(Schema):
 
 
 class BaseNode(Schema):
-    template_type = fields.Str(required=True)
     hostname = fields.Str(required=True)
     domain = fields.Str(required=True)
     snmpv2 = fields.List(fields.Nested(BaseSNMPv2))

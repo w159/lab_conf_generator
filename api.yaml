@@ -29,7 +29,7 @@ paths:
 
         - in: query
           description: Return Val type, default is text.
-          name: return_type
+          name:
           schema:
             type: string
             enum:

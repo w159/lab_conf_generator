@@ -1,5 +1,6 @@
 from lcg.api.controllers import validate_params
 from lcg.generators import ConfigGenerator
+from lcg.core import GCG, GeneratorTask
 from lcg.schemas import IOSNodeSchema, NetplanSchema
 from lcg.api.controllers import ControllerResult
 from lcg.maps import MAP_TEMPLATE_TYPES
@@ -17,6 +18,14 @@ def _process(template_type, params) -> ConfigGenerator:
     cg.generate(params)
 
     return cg
+
+
+def controller_gcg(task: GeneratorTask, store_aws=False):
+    config_gen = GCG()
+    config_gen.add_task(task)
+    config_gen.generate(store_aws=store_aws)
+
+    return ControllerResult(data=task.rendered_data, result=True, msg="Successful", status=200)
 
 
 def controller_ios_base_config(params):
