@@ -24,10 +24,7 @@ api = Api(app)
 connect(db=DB, host=DB_HOST, port=DB_PORT)
 
 # --- API Registration ---
-
-api.add_resource(ConfigIOSBaseResource, "/api/v1/lcg/config/ios/base")
 api.add_resource(GCGResource, "/api/v1/gcg")
-api.add_resource(ConfigLinuxNetplanBasicResource, "/api/v1/lcg/config/linux/netplan")
 
 
 # --- Routes ---
