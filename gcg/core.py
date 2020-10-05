@@ -136,7 +136,7 @@ class GCG:
         else:
             raise TypeError(f'Invalid Type, Must be instance of type: {GeneratorTask}')
 
-    def generate(self, store_aws=False, store_local=False):
+    def generate(self, store_aws=False, store_local=False, **kwargs):
         """
         Iterates through the list of tasks and generates the requested configurations. If the configuration generation
         was completed successfully, CGC sets each task.is_complete to true.
@@ -159,11 +159,9 @@ class GCG:
                 raise
 
             if store_aws:
-
-
                 s3_client = boto3.client('s3',
-                                         aws_access_key_id=AWS_ACCESS_KEY,
-                                         aws_secret_access_key=AWS_SECRET_KEY
+                                         aws_access_key_id=kwargs.get('aws_access_key', AWS_ACCESS_KEY),
+                                         aws_secret_access_key=kwargs.get('aws_secret_key', AWS_SECRET_KEY)
                                          )
 
                 temp_file = f'../gcg/.tmp/{task.name}.txt'
