@@ -9,11 +9,15 @@ class GCGResource(Resource):
     def post():
 
         json_data = request.json
-        args = request.args
+        url_params = request.args
 
-        return_type = args.get("return_type", "json")
-        name = args.get("name")
-        store_aws = args.get("store_aws", False)
+        # Extracts URL params
+        return_type = url_params.get("return_type", "json")
+        name = url_params.get("name")
+        store_aws = url_params.get("store_aws", False)
+
+        # Extracts API Options
+
 
         task = GeneratorTask.new(data=json_data, name=name)
 
