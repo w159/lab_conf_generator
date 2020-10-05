@@ -160,8 +160,8 @@ class GCG:
 
             if store_aws:
                 s3_client = boto3.client('s3',
-                                         aws_access_key_id=kwargs.get('aws_access_key', AWS_ACCESS_KEY),
-                                         aws_secret_access_key=kwargs.get('aws_secret_key', AWS_SECRET_KEY)
+                                         aws_access_key_id=AWS_ACCESS_KEY,
+                                         aws_secret_access_key=AWS_SECRET_KEY
                                          )
 
                 temp_file = f'{TEMP_FOLDER}/{task.name}.txt'

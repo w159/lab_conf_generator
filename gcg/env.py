@@ -12,4 +12,4 @@ AWS_SECRET_KEY = os.getenv("AWS_SECRET_KEY", '9l66XGtsDK9ao7twEaD44XC388ppSo7RJK
 
 TEMPLATE_FOLDER = os.getenv('TEMPLATE_FOLDER', 'template')
 
-TEMP_FOLDER = os.getenv("TEMP_FOLDER", '../gcg/.tmp/')
+TEMP_FOLDER = os.getenv("TEMP_FOLDER", '../gcg/.tmp')

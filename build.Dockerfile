@@ -4,6 +4,7 @@ FROM python:3.7-slim AS core
 # Creates and Make sure we use the virtualenv:
 RUN python -m venv /opt/venv
 ENV PATH="/opt/venv/bin:$PATH"
+ADD /opt/gcg/.tmp/
 
 # ---- Compiles Python Distro ----
 COPY gcg /gcg
