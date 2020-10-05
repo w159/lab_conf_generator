@@ -11,7 +11,7 @@ from marshmallow.validate import OneOf
 from gcg.maps import MAP_TEMPLATE_TYPES
 from gcg.utils import make_file_path
 from gcg.exceptions import GCGError, GCGValidationError
-from gcg.env import TEMPLATE_FOLDER, AWS_SECRET_KEY, AWS_ACCESS_KEY
+from gcg.env import TEMPLATE_FOLDER, AWS_SECRET_KEY, AWS_ACCESS_KEY, TEMP_FOLDER
 
 my_path = os.path.abspath(os.path.dirname(__file__))
 path = os.path.join(my_path, TEMPLATE_FOLDER)
@@ -164,7 +164,7 @@ class GCG:
                                          aws_secret_access_key=kwargs.get('aws_secret_key', AWS_SECRET_KEY)
                                          )
 
-                temp_file = f'../gcg/.tmp/{task.name}.txt'
+                temp_file = f'{TEMP_FOLDER}/{task.name}.txt'
                 with open(temp_file, 'w') as f:
                     f.write(task.rendered_data)
 
@@ -172,7 +172,7 @@ class GCG:
                 os.remove(temp_file)
 
             if store_local:
-                temp_file = f'../gcg/.tmp/{task.name}.txt'
+                temp_file = f'{TEMP_FOLDER}/{task.name}.txt'
                 with open(temp_file, 'w') as f:
                     f.write(task.rendered_data)
 
