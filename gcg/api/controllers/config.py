@@ -1,9 +1,14 @@
+import os
+
+import boto3
+
 from gcg.api.controllers import validate_params
 from gcg.generators import ConfigGenerator
 from gcg.core import GCG, GeneratorTask
 from gcg.schemas import IOSNodeSchema, NetplanSchema
 from gcg.api.controllers import ControllerResult
 from gcg.maps import MAP_TEMPLATE_TYPES
+from gcg.env import AWS_SECRET_KEY, AWS_ACCESS_KEY
 
 
 def _process(template_type, params) -> ConfigGenerator:
@@ -20,10 +25,14 @@ def _process(template_type, params) -> ConfigGenerator:
     return cg
 
 
-def controller_gcg(task: GeneratorTask, store_aws=False):
+def controller_gcg(task: GeneratorTask, store_aws=False, **kwargs):
     config_gen = GCG()
     config_gen.add_task(task)
-    config_gen.generate(store_aws=store_aws)
+    config_gen.generate(
+        store_aws=store_aws,
+        aws_access_key=kwargs.get("aws_access_key"),
+        aws_secret_key=kwargs.get("aws_secret_key")
+    )
 
     return ControllerResult(data=task.rendered_data, result=True, msg="Successful", status=200)
 
