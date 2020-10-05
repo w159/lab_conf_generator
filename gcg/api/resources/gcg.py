@@ -15,13 +15,14 @@ class GCGResource(Resource):
         return_type = url_params.get("return_type", "json")
         name = url_params.get("name")
         store_aws = url_params.get("store_aws", False)
+        lab_name = url_params.get("lab_name")
 
         # Extracts API Options
 
 
         task = GeneratorTask.new(data=json_data, name=name)
 
-        result = controller_gcg(task=task, store_aws=bool(store_aws))
+        result = controller_gcg(task=task, store_aws=bool(store_aws), lab_name=lab_name)
         #
         if isinstance(result, ControllerResult):
             if return_type == "text":

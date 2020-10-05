@@ -31,7 +31,8 @@ def controller_gcg(task: GeneratorTask, store_aws=False, **kwargs):
     config_gen.generate(
         store_aws=store_aws,
         aws_access_key=kwargs.get("aws_access_key"),
-        aws_secret_key=kwargs.get("aws_secret_key")
+        aws_secret_key=kwargs.get("aws_secret_key"),
+        lab_name=kwargs.get("lab_name")
     )
 
     return ControllerResult(data=task.rendered_data, result=True, msg="Successful", status=200)

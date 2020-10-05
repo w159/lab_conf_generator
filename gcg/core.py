@@ -2,6 +2,7 @@ import json
 import jinja2
 import os
 import uuid
+import datetime
 
 import boto3
 
@@ -147,6 +148,8 @@ class GCG:
         results['task_completed'] = []
         results['task_remaining'] = []
 
+        LAB_NAME = kwargs.get("lab_name", datetime.datetime.now().strftime("%m_%d_%Y"))
+
         for task in self.tasks:
 
             template_file_name = task._template_file_name
@@ -168,7 +171,7 @@ class GCG:
                 with open(temp_file, 'w') as f:
                     f.write(task.rendered_data)
 
-                s3_client.upload_file(temp_file, 'cbaxter1988', f'gcg_configs/{task.name}.txt')
+                s3_client.upload_file(temp_file, 'cbaxter1988', f'gcg_configs/{LAB_NAME}/{task.name}.txt')
                 os.remove(temp_file)
 
             if store_local:

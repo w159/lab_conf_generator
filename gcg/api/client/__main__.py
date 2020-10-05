@@ -7,7 +7,7 @@ class LCGClient:
     def __init__(self, host='127.0.0.1', port=5002):
         self._host = host
         self._port = str(port)
-        self._endpoint = '/api/v1/lcg/config/base'
+        self._endpoint = '/api/v1/gcg'
 
         self._url = f'http://{self._host}:{self._port}{self._endpoint}'
 
