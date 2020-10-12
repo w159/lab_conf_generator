@@ -7,8 +7,6 @@ from mongoengine import connect
 
 from gcg.api.models import BaseConfigDocument
 from gcg.api.resources import (
-    ConfigIOSBaseResource,
-    ConfigLinuxNetplanBasicResource,
     GCGResource
 )
 from gcg.env import DB_HOST, DB_PORT, DB

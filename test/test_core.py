@@ -1,6 +1,6 @@
 import unittest
 import json
-from lcg.core import GCG, GeneratorTask, GCGValidationError
+from gcg.core import Genesis, Task, GCGValidationError
 from test.helpers import open_json_file
 from marshmallow import Schema
 
@@ -14,7 +14,7 @@ class GCGTestCase(unittest.TestCase):
         Basic test of the GenesisConfigurationGenerator
 
         """
-        cg = GCG()
+        cg = Genesis()
 
         self.assertIsInstance(cg.tasks, list)
 
@@ -23,11 +23,11 @@ class GCGTestCase(unittest.TestCase):
         Tests the add task functionality
 
         """
-        config_generator = GCG()
+        config_generator = Genesis()
 
         data = open_json_file('r1.json')
 
-        task_1 = GeneratorTask.new(data=data)
+        task_1 = Task.new(data=data)
         self.assertTrue(config_generator.add_task(task_1))
 
         with self.assertRaises(TypeError):
@@ -41,12 +41,12 @@ class GCGTestCase(unittest.TestCase):
         Tests the CGC.generate() method.
 
         """
-        config_generator = GCG()
+        config_generator = Genesis()
 
         data = open_json_file('r1.json')
 
-        task_1 = GeneratorTask.new(data=data, name="R1_BASE_CONFIG")
-        task_2 = GeneratorTask.new(data=data, name="R1_BASE_CONFIG_2")
+        task_1 = Task.new(data=data, name="R1_BASE_CONFIG")
+        task_2 = Task.new(data=data, name="R1_BASE_CONFIG_2")
 
         config_generator.add_task(task_1)
         config_generator.add_task(task_2)
@@ -193,16 +193,16 @@ class GeneratorTaskTestCase(unittest.TestCase):
             data = json.load(file)
         self.assertIsInstance(data, dict)
 
-        task_1 = GeneratorTask(data=data)
+        task_1 = Task(data=data)
 
-        self.assertIsInstance(task_1, GeneratorTask)
+        self.assertIsInstance(task_1, Task)
         self.assertEqual(task_1.template_type, 'ios_base_node')
         self.assertIsInstance(task_1._schema, Schema)
         self.assertTrue(".j2" in task_1._template_file_name)
 
         with self.assertRaises(GCGValidationError):
             del data['template_type']
-            GeneratorTask.new(data=data)
+            Task.new(data=data)
 
     def test_case_2(self):
         """
@@ -212,9 +212,9 @@ class GeneratorTaskTestCase(unittest.TestCase):
             data = json.load(file)
         self.assertIsInstance(data, dict)
 
-        task_1 = GeneratorTask.new(data=data)
+        task_1 = Task.new(data=data)
 
-        self.assertIsInstance(task_1, GeneratorTask)
+        self.assertIsInstance(task_1, Task)
         self.assertEqual(task_1.template_type, 'ios_base_node')
         self.assertIsInstance(task_1._schema, Schema)
         self.assertTrue(".j2" in task_1._template_file_name)
@@ -229,11 +229,11 @@ class GeneratorTaskTestCase(unittest.TestCase):
             data = json.load(file)
         self.assertIsInstance(data, dict)
 
-        task_1 = GeneratorTask.new(data=data)
+        task_1 = Task.new(data=data)
         self.assertTrue(task_1.validate())
 
         with self.assertRaises(GCGValidationError):
-            task_2 = GeneratorTask.new(data={'data': 'bad_data'})
+            task_2 = Task.new(data={'data': 'bad_data'})
 
     def test_case_4(self):
         """
@@ -241,8 +241,8 @@ class GeneratorTaskTestCase(unittest.TestCase):
 
         """
 
-        self.assertIsInstance(GeneratorTask.template_types(), list)
-        self.assertGreater(len(GeneratorTask.template_types()), 1)
+        self.assertIsInstance(Task.list_template_types(), list)
+        self.assertGreater(len(Task.list_template_types()), 1)
 
 
 if __name__ == '__main__':

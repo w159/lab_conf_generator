@@ -2,8 +2,8 @@ import unittest
 
 # Load Test Modules
 from test import (
-  test_config_gen,
-  test_schemas
+    test_task,
+    test_genesis
 )
 
 # Creates loader and empty test suite.
@@ -12,12 +12,12 @@ suite = unittest.TestSuite()
 
 
 def load_tests():
-    suite.addTests(loader.loadTestsFromModule(test_config_gen))
-    suite.addTests(loader.loadTestsFromModule(test_schemas))
+    suite.addTests(loader.loadTestsFromModule(test_task))
+    suite.addTests(loader.loadTestsFromModule(test_genesis))
 
 
 def run_tests():
-    runner = unittest.TextTestRunner(verbosity=2)
+    runner = unittest.TextTestRunner(verbosity=1)
     runner.run(suite)
 
 

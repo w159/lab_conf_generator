@@ -1,14 +1,14 @@
 openapi: 3.0.1
 info:
-  title: Lab Configuration Generation
+  title: Genesis Config Generator
   description: '
-  This API is built on the cbaxter1988/lcg package, providing the ability to generate various device configurations
+  This API  provides the ability to generate various device configurations.
   '
   version: 1.0.0
 servers:
   - url: 'http://udev.bits.local:5002/api'
 paths:
-  /v1/lcg/config/ios/base:
+  /api/v1/gcg:
 
     post:
       tags:
@@ -19,8 +19,8 @@ paths:
       '
       parameters:
         - in: query
-          description: template type you would like generated.
-          name: template_type
+          description: Name of the configuration item that will be generated.
+          name: name
           schema:
 
             type: string
@@ -29,7 +29,7 @@ paths:
 
         - in: query
           description: Return Val type, default is text.
-          name:
+          name: return_type
           schema:
             type: string
             enum:

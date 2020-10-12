@@ -1,8 +1,8 @@
 {
   "opts": {
     "lab_name": "",
-    "dev_name": "",
-    "resp_type": "text"
+    "name": "",
+    "store_aws": "false"
   },
   "data": {
     "node_type": "",

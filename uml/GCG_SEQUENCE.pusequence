@@ -1,0 +1,23 @@
+@startuml
+actor User
+participant GenesisConfigGenerator
+participant AWS_S3
+====
+group Success
+
+User -> GenesisConfigGenerator:POST /api/v1/gcg - Generate config
+activate GenesisConfigGenerator #red
+GenesisConfigGenerator ---> GenesisConfigGenerator: Generate Config based on opts.template_type
+GenesisConfigGenerator -> AWS_S3: If opts.store_aws is True, save to AWS library
+AWS_S3 --> GenesisConfigGenerator:  Success
+
+GenesisConfigGenerator --> User: Success
+deactivate GenesisConfigGenerator
+end
+
+group Invalid Request
+User -> GenesisConfigGenerator:POST /api/v1/gcg - Generate config
+GenesisConfigGenerator ---> GenesisConfigGenerator: Invalid Request
+GenesisConfigGenerator --> User: httpStatus: XXX - Error
+end
+@enduml

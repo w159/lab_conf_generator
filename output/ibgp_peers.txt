@@ -1,7 +1,0 @@
-template peer-session IBGP_PEERS
- remote-as 100
- description IBGP Peer template
- update-source Loopback0
- timers 30 90
- password CISCO1
-exit-peer-session

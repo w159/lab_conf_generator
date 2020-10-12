@@ -1,0 +1,9 @@
+@startuml
+autonumber
+actor User
+participant GCG
+participant AWS_S3
+User -> GCG: Users sends cli command executing the GCG tool
+GCG -> GCG: iterates thru GCG.tasks, render template based on template type
+GCG -> GCG:
+@enduml

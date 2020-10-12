@@ -1,0 +1,78 @@
+@startuml
+package gcg {
+
+    component core as core_gcg
+    component env
+    component exceptions
+    component maps
+    component utils
+
+
+    folder templates {
+        folder ios
+        folder ios_xr
+        folder linux
+
+    }
+
+    package api as gcg_api {
+        package controllers {
+            component controller_gcg
+
+        }
+        package models {
+            component base_config
+
+        }
+        package resources {
+
+            component resource_gcg
+
+        }
+        folder static
+        folder templates as gcg_folder_templates
+
+    }
+
+    package schemas {
+        component __init__ as init_schemas
+
+        package api {
+            component core as core_api
+            component __init__ as init_api
+
+        }
+
+        package config {
+            component __init__ as init_config
+            component core as core_config
+
+        }
+
+        package network {
+            component __init__ as init_network
+            component core as core_network
+
+        }
+
+        init_schemas <- init_api
+        init_schemas <- init_config
+        init_schemas <- init_network
+
+    }
+
+
+}
+
+core_gcg <- init_schemas
+core_gcg <- exceptions
+core_gcg <- env
+core_gcg <- maps
+core_gcg <- utils
+
+
+
+
+
+
+@enduml

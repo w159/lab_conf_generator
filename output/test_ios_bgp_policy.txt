@@ -1,9 +1,0 @@
-template peer-policy L3VPN_CE1
- route-map L3VPN_CE1_IN in
- route-map L3VPN_CE1_OUT out
- maximum-prefix 50
- capability orf prefix-list both
- soo 100:01
- send-community both
- soft-reconfiguration inbound
-exit-peer-policy

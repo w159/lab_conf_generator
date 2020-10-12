@@ -1,0 +1,9 @@
+@startuml
+
+(*)
+--> "UserInteface(CLI | REST) Receives DATA from USER."
+
+
+--> Interface invokes the "controller_gcg(data=data, store_aws=[True | False])" function.
+--> controller_gcg creates a gcg.core.Task object based on the data received from the User Interface.
+@enduml
