@@ -135,6 +135,7 @@ class Genesis:
 
         """
         if isinstance(task, Task):
+            gcg_logger.debug(f'Appended {task} to {self}')
             self.tasks.append(task)
             return True
         else:
@@ -182,7 +183,7 @@ class Genesis:
         try:
             task.rendered_data = template_file.render(**task.data)
             task.is_complete = True
-            gcg_logger.debug(f'Generated Task {task}')
+            gcg_logger.debug(f'Generated "{task.template_type}" Task: {task}')
         except Exception:
             task.is_complete = False
             raise
