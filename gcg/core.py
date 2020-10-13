@@ -10,6 +10,8 @@ from gcg.env import TEMPLATE_FOLDER, AWS_SECRET_KEY, AWS_ACCESS_KEY, TEMP_FOLDER
 from gcg.exceptions import GCGValidationError
 from gcg.maps import MAP_TEMPLATE_TYPES
 from gcg.utils import make_file_path
+from gcg.log import gcg_logger
+
 from marshmallow import Schema, fields
 from marshmallow.validate import OneOf
 
@@ -154,6 +156,7 @@ class Genesis:
                 save_location=save_location
             )
 
+
         for task in self.tasks:
             if task.is_complete:
                 self.task_completed.append(task)
@@ -179,7 +182,7 @@ class Genesis:
         try:
             task.rendered_data = template_file.render(**task.data)
             task.is_complete = True
-
+            gcg_logger.debug(f'Generated Task {task}')
         except Exception:
             task.is_complete = False
             raise
@@ -197,6 +200,7 @@ class Genesis:
             s3_client.upload_file(temp_file, 'cbaxter1988', f'gcg_configs/{LAB_NAME}/{task.name}.txt')
 
             os.remove(temp_file)
+            gcg_logger.debug(f'Uploaded {task.name} to AWS S3')
 
         if store_local:
             save_location = SAVE_LOCATION if SAVE_LOCATION is not None else TEMP_FOLDER
