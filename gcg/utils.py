@@ -34,14 +34,14 @@ def make_file_path(file, file_path):
     return path
 
 
-def make_json_response(data: dict, msg, status_code, headers=None):
+def make_json_response(data: object, msg, status_code, headers=None):
     if not headers:
         headers = JSON_RESPONSE_HEADERS
 
     return Response(response=json.dumps({"data": data, "msg": msg}), status=status_code, headers=headers)
 
 
-def make_text_response(data: dict, msg, status_code, headers=None):
+def make_text_response(data: object, msg, status_code, headers=None):
     if not headers:
         headers = TEXT_RESPONSE_HEADERS
 
