@@ -3,9 +3,6 @@ from functools import wraps
 
 from flask import Flask, jsonify, render_template
 from flask_restful import Api
-from mongoengine import connect
-
-from gcg.api.models import BaseConfigDocument
 from gcg.api.resources import (
     GCGResource
 )
