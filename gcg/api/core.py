@@ -55,13 +55,21 @@ def api_login():
 @app.route("/api/v1/logout")
 def api_logout():
     # TODO: Implement logic for logging the requester out.
-    return APIResponse(data=jsonify({"data": "index Hit"}), status=http_status_codes.OK)
+    return make_json_response(
+        data={},
+        msg="Not Implemented",
+        status=http_status_codes.NOT_IMPLEMENTED
+    )
 
 
 @app.route("/api/v1/register")
 def api_register():
     # TODO: Implement logic for registering users that will utilize the API.
-    return APIResponse(data=jsonify({"data": "index Hit"}), status=http_status_codes.OK)
+    return make_json_response(
+        data={},
+        msg="Not Implemented",
+        status=http_status_codes.NOT_IMPLEMENTED
+    )
 
 
 # --- Helper Funcs and Decorators ---
