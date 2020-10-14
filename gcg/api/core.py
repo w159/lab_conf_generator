@@ -1,17 +1,14 @@
-import json
+import http.client as http_status_codes
 from functools import wraps
-
-from flask import Flask, jsonify, render_template, Response
+import psutil
+from flask import Flask, jsonify, render_template
 from flask_restful import Api
-from mongoengine import connect
-
-from gcg.api.models import BaseConfigDocument
 from gcg.api.resources import (
     GCGResource
 )
 from gcg.env import DB_HOST, DB_PORT, DB
-from gcg.constants import STATUS_200_SUCCESS, JSON_RESPONSE_HEADERS
-from gcg.utils import APIResponse
+from gcg.utils import APIResponse, make_json_response
+from mongoengine import connect
 
 # ---- Flask Config ----
 app = Flask(__name__)
@@ -31,44 +28,48 @@ def index():
     return render_template("index.jinja2")
 
 
-@app.route("/grid")
-def grid():
-    return render_template("grid.j2")
+@app.route("/health")
+@app.route("/health_check")
+def health():
+    return make_json_response(
+        data={
+            "cpu_used_percent": psutil.cpu_percent(),
+            "ram_used_percent": psutil.virtual_memory().percent,
+            "ram_avail_percent": psutil.virtual_memory().available * 100 / psutil.virtual_memory().total,
+        },
+        msg="System is Healthy",
+        status_code=http_status_codes.OK
+    )
 
 
-@app.route("/api/v1/nodes")
-def get_nodes():
-    db_nodes = BaseConfigDocument.objects().exclude("id")
-    nodes = []
-    for node in db_nodes:
-        nodes.append(node.to_json())
-
-    return Response(response=json.dumps(nodes), headers=JSON_RESPONSE_HEADERS)
-
-
-@app.route("/api/v1/node/<hostname>")
-def get_node(hostname):
-    node_data = BaseConfigDocument.objects(hostname=hostname).exclude("id").first()
-    if node_data:
-        return Response(response=json.dumps(node_data.to_json()), headers=JSON_RESPONSE_HEADERS)
-
-
-@app.route("/app/login")
+@app.route("/api/v1/login")
 def api_login():
     # TODO: Implement login logic, return JWT token to requester.
-    return APIResponse(data=jsonify({"token": None}), status=STATUS_200_SUCCESS)
+    return make_json_response(
+        data=jsonify({"token": None}),
+        msg="Not Implemented",
+        status=http_status_codes.NOT_IMPLEMENTED
+    )
 
 
-@app.route("/app/logout")
+@app.route("/api/v1/logout")
 def api_logout():
     # TODO: Implement logic for logging the requester out.
-    return APIResponse(data=jsonify({"data": "index Hit"}), status=STATUS_200_SUCCESS)
+    return make_json_response(
+        data={},
+        msg="Not Implemented",
+        status=http_status_codes.NOT_IMPLEMENTED
+    )
 
 
-@app.route("/app/register")
+@app.route("/api/v1/register")
 def api_register():
     # TODO: Implement logic for registering users that will utilize the API.
-    return APIResponse(data=jsonify({"data": "index Hit"}), status=STATUS_200_SUCCESS)
+    return make_json_response(
+        data={},
+        msg="Not Implemented",
+        status=http_status_codes.NOT_IMPLEMENTED
+    )
 
 
 # --- Helper Funcs and Decorators ---
