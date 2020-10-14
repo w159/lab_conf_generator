@@ -1,6 +1,6 @@
 import http.client as http_status_codes
 from functools import wraps
-
+import psutil
 from flask import Flask, jsonify, render_template
 from flask_restful import Api
 from gcg.api.resources import (
@@ -31,7 +31,15 @@ def index():
 @app.route("/health")
 @app.route("/health_check")
 def health():
-    return make_json_response(data={}, msg="System is Healthy", status_code=http_status_codes.OK)
+    return make_json_response(
+        data={
+            "cpu_used_percent": psutil.cpu_percent(),
+            "ram_used_percent": psutil.virtual_memory().percent,
+            "ram_avail_percent": psutil.virtual_memory().available * 100 / psutil.virtual_memory().total,
+        },
+        msg="System is Healthy",
+        status_code=http_status_codes.OK
+    )
 
 
 @app.route("/api/v1/login")
