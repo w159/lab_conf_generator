@@ -28,44 +28,32 @@ def index():
     return render_template("index.jinja2")
 
 
-@app.route("/grid")
-def grid():
-    return render_template("grid.j2")
+@app.route("/health")
+@app.route("/health_check")
+def health():
+    return make_json_response(data={}, msg="System is Healthy", status_code=http_status_codes.OK)
 
 
-@app.route("/api/v1/nodes")
-def get_nodes():
-    db_nodes = BaseConfigDocument.objects().exclude("id")
-    nodes = []
-    for node in db_nodes:
-        nodes.append(node.to_json())
-
-    return Response(response=json.dumps(nodes), headers=JSON_RESPONSE_HEADERS)
-
-
-@app.route("/api/v1/node/<hostname>")
-def get_node(hostname):
-    node_data = BaseConfigDocument.objects(hostname=hostname).exclude("id").first()
-    if node_data:
-        return Response(response=json.dumps(node_data.to_json()), headers=JSON_RESPONSE_HEADERS)
-
-
-@app.route("/app/login")
+@app.route("/api/v1/login")
 def api_login():
     # TODO: Implement login logic, return JWT token to requester.
-    return APIResponse(data=jsonify({"token": None}), status=STATUS_200_SUCCESS)
+    return make_json_response(
+        data=jsonify({"token": None}),
+        msg="Not Implemented",
+        status=http_status_codes.NOT_IMPLEMENTED
+    )
 
 
-@app.route("/app/logout")
+@app.route("/api/v1/logout")
 def api_logout():
     # TODO: Implement logic for logging the requester out.
-    return APIResponse(data=jsonify({"data": "index Hit"}), status=STATUS_200_SUCCESS)
+    return APIResponse(data=jsonify({"data": "index Hit"}), status=http_status_codes.OK)
 
 
-@app.route("/app/register")
+@app.route("/api/v1/register")
 def api_register():
     # TODO: Implement logic for registering users that will utilize the API.
-    return APIResponse(data=jsonify({"data": "index Hit"}), status=STATUS_200_SUCCESS)
+    return APIResponse(data=jsonify({"data": "index Hit"}), status=http_status_codes.OK)
 
 
 # --- Helper Funcs and Decorators ---
