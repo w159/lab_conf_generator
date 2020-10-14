@@ -74,7 +74,7 @@ class Task:
 
         if MAP_RESULTS is None:
             raise GCGValidationError(
-                f"Invalid Template Type provide'{template_type}', Choices: {MAP_TEMPLATE_TYPES.keys()}")
+                f"Invalid Template Type provide: '{template_type}', Choices: {MAP_TEMPLATE_TYPES.keys()}")
         else:
             self.template_type = template_type
             self._schema = MAP_RESULTS.get("schema")
