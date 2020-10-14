@@ -1,9 +1,17 @@
-@startuml
+(*) --> "
+Create New Task Based on Input
+"
+--> "
+Render config based on Task.template_type
+"
+if "task.is_complete == True" then
+-->[false] "Raise Exception"
+else
+--> [true]===opts_tree===
 
-(*)
---> "UserInteface(CLI | REST) Receives DATA from USER."
-
-
---> Interface invokes the "controller_gcg(data=data, store_aws=[True | False])" function.
---> controller_gcg creates a gcg.core.Task object based on the data received from the User Interface.
-@enduml
+===opts_tree=== --> if "store_aws " then 
+--> [True]Stores config to AWS bucket 
+--> end
+===opts_tree=== --> if "store_local " then 
+--> [True] Stores config to store_location
+--> end

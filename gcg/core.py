@@ -8,6 +8,7 @@ import boto3
 import jinja2
 from gcg.env import TEMPLATE_FOLDER, AWS_SECRET_KEY, AWS_ACCESS_KEY, TEMP_FOLDER
 from gcg.exceptions import GCGValidationError
+from gcg.log import gcg_logger
 from gcg.maps import MAP_TEMPLATE_TYPES
 from gcg.utils import make_file_path
 from marshmallow import Schema, fields
@@ -133,6 +134,7 @@ class Genesis:
 
         """
         if isinstance(task, Task):
+            gcg_logger.debug(f'Appended {task} to {self}')
             self.tasks.append(task)
             return True
         else:
@@ -174,39 +176,43 @@ class Genesis:
         SAVE_LOCATION = kwargs.get("save_location")
 
         template_file_name = task._template_file_name
-        template_file = _open_template(template_file_name)
+        template = _open_template(template_file_name)
 
         try:
-            task.rendered_data = template_file.render(**task.data)
+            task.rendered_data = template.render(**task.data)
             task.is_complete = True
+            gcg_logger.debug(f'Generated "{task.template_type}" Task: {task}')
 
         except Exception:
             task.is_complete = False
             raise
-
-        if store_aws:
-            s3_client = boto3.client('s3',
-                                     aws_access_key_id=AWS_ACCESS_KEY,
-                                     aws_secret_access_key=AWS_SECRET_KEY
-                                     )
-
-            temp_file = f'{TEMP_FOLDER}/{task.name}.txt'
-            with open(temp_file, 'w') as f:
-                f.write(task.rendered_data)
-
-            s3_client.upload_file(temp_file, 'cbaxter1988', f'gcg_configs/{LAB_NAME}/{task.name}.txt')
-
-            os.remove(temp_file)
-
-        if store_local:
-            save_location = SAVE_LOCATION if SAVE_LOCATION is not None else TEMP_FOLDER
-
-            temp_file = f'{save_location}/{task.name}.txt'
-
-            with open(temp_file, 'w') as f:
-                f.write(task.rendered_data)
-
         if task.is_complete:
+
+            if store_aws:
+                s3_client = boto3.client(
+                    's3',
+                    aws_access_key_id=AWS_ACCESS_KEY,
+                    aws_secret_access_key=AWS_SECRET_KEY
+                )
+
+                temp_file = f'{TEMP_FOLDER}/{task.name}.txt'
+                with open(temp_file, 'w') as f:
+                    f.write(task.rendered_data)
+
+                s3_client.upload_file(temp_file, 'cbaxter1988', f'gcg_configs/{LAB_NAME}/{task.name}.txt')
+
+                os.remove(temp_file)
+                gcg_logger.debug(f'Uploaded {task.name} to AWS S3')
+
+            if store_local:
+                save_location = SAVE_LOCATION if SAVE_LOCATION is not None else TEMP_FOLDER
+
+                temp_file = f'{save_location}/{task.name}.txt'
+
+                with open(temp_file, 'w') as f:
+                    f.write(task.rendered_data)
+                    gcg_logger.debug(f"Saved Config: {temp_file}")
+
             return GenesisResults(task_completed=[task], task_remaining=[])
 
 
