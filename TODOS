@@ -1,8 +1,5 @@
 # Core
-TODO: Add IPv6 address to ios_xe and ios_xr base config
-TODO: Add vrf forwarding  to ios_xe base config
-TODO: Add vrf to ios_xr base config
-TODO: Add support for Amazon S3 uploads of generated configurations.
+TODO: Add 'lab_name' param to gcg.__main__ controller_gcg_v2 function call.
 
 # WebGUI
 
