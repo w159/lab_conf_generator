@@ -1,7 +1,7 @@
-import json
+import http.client as http_status_codes
 from functools import wraps
 
-from flask import Flask, jsonify, render_template, Response
+from flask import Flask, jsonify, render_template
 from flask_restful import Api
 from mongoengine import connect
 
@@ -10,8 +10,8 @@ from gcg.api.resources import (
     GCGResource
 )
 from gcg.env import DB_HOST, DB_PORT, DB
-from gcg.constants import STATUS_200_SUCCESS, JSON_RESPONSE_HEADERS
-from gcg.utils import APIResponse
+from gcg.utils import APIResponse, make_json_response
+from mongoengine import connect
 
 # ---- Flask Config ----
 app = Flask(__name__)
