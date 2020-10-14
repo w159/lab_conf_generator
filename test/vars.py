@@ -56,24 +56,155 @@ data_ios_bgp_policy = {
 }
 
 data_ios_base_node = {
-            "hostname": "BITS-TEST",
-            "management": {
-                "link_id": "loopback0",
-                "ip_address": "10.0.0.1",
-                "netmask": "255.255.255.255"
+    "hostname": "BITS-TEST",
+    "management": {
+        "link_id": "loopback0",
+        "ip_address": "10.0.0.1",
+        "netmask": "255.255.255.255"
+    },
+    "interfaces": [
+        {
+            "link_id": "GigabitEthernet1",
+            "description": "Link to CSR2-PE",
+            "ip_address": "10.1.2.1",
+            "netmask": "255.255.255.252"
+        },
+        {
+            "link_id": "GigabitEthernet2",
+            "description": "Link to CSR3-PE",
+            "ip_address": "10.1.3.1",
+            "netmask": "255.255.255.252"
+        }
+    ]
+}
+
+data_task_empty = {
+
+    "data": {
+    }
+
+}
+
+data_task = {
+
+    "hostname": "R1-CORE",
+    "domain": "bits.local",
+    "interfaces": [
+        {
+            "link_id": "lo0",
+            "description": "MGMT Interface",
+            "ipv4_addrs": [
+                {
+                    "address": "10.0.0.1",
+                    "netmask": "255.255.255.255"
+                }
+            ]
+        },
+        {
+            "link_id": "Gi1",
+            "bandwidth": "100",
+            "description": "CSR2",
+            "mpls": {
+                "ldp": True
             },
-            "interfaces": [
+            "ospf": {
+                "p_id": "1",
+                "area_id": "100",
+                "network_type": "point-to-point",
+                "auth": {
+                    "is_null": True
+                }
+            },
+            "ipv4_addrs": [
                 {
-                    "link_id": "GigabitEthernet1",
-                    "description": "Link to CSR2-PE",
-                    "ip_address": "10.1.2.1",
+                    "address": "10.2.4.2",
                     "netmask": "255.255.255.252"
-                },
+                }
+            ],
+            "ipv6_addrs": [
                 {
-                    "link_id": "GigabitEthernet2",
-                    "description": "Link to CSR3-PE",
-                    "ip_address": "10.1.3.1",
+                    "ipv6_address": "2001:2:4::2/64"
+                }
+            ]
+        },
+        {
+            "link_id": "Gi2",
+            "bandwidth": "50",
+            "description": "CSR3",
+            "mpls": {
+                "ldp": True
+            },
+            "ospf": {
+                "p_id": "1",
+                "area_id": "100",
+                "network_type": "point-to-point",
+                "auth": {
+                    "is_null": True
+                }
+            },
+            "ipv4_addrs": [
+                {
+                    "address": "10.3.4.2",
                     "netmask": "255.255.255.252"
+                }
+            ],
+            "ipv6_addrs": [
+                {
+                    "ipv6_address": "2001:3:4::2/64"
+                }
+            ]
+        },
+        {
+            "link_id": "Gi3",
+            "bandwidth": "100",
+            "description": "CSR7",
+            "mpls": {
+                "ldp": True
+            },
+            "ospf": {
+                "p_id": "1",
+                "area_id": "100",
+                "auth": {
+                    "is_null": True
+                }
+            },
+            "ipv4_addrs": [
+                {
+                    "address": "10.4.7.1",
+                    "netmask": "255.255.255.252"
+                }
+            ],
+            "ipv6_addrs": [
+                {
+                    "ipv6_address": "2001:4:7::1/64"
+                }
+            ]
+        },
+        {
+            "link_id": "Gi4",
+            "bandwidth": "100",
+            "description": "CSR8",
+            "mpls": {
+                "ldp": True
+            },
+            "ospf": {
+                "p_id": "1",
+                "area_id": "100",
+                "auth": {
+                    "is_null": True
+                }
+            },
+            "ipv4_addrs": [
+                {
+                    "address": "10.4.8.1",
+                    "netmask": "255.255.255.252"
+                }
+            ],
+            "ipv6_addrs": [
+                {
+                    "ipv6_address": "2001:4:8::1/64"
                 }
             ]
         }
+    ]
+}

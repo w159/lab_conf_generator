@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        python_package = 'lcg'
+        python_package = 'gcg'
         git_url = 'https://github.com/byt3-m3/lab_conf_generator.git'
     }
 

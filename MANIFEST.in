@@ -1,6 +1,6 @@
 include requirements.txt
 include api.yaml
-recursive-include lcg/template/* *
-recursive-include lcg/api/templates *
-recursive-include lcg/api/static/*  *
-recursive-include lcg/api/resources/json_models  *.json
+recursive-include gcg/template/* *
+recursive-include gcg/api/templates *
+recursive-include gcg/api/static/*  *
+recursive-include gcg/api/resources/json_models  *.json

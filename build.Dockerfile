@@ -6,7 +6,7 @@ RUN python -m venv /opt/venv
 ENV PATH="/opt/venv/bin:$PATH"
 
 # ---- Compiles Python Distro ----
-COPY lcg /lcg
+COPY gcg /gcg
 COPY requirements.txt /
 COPY setup.py /
 COPY *.in /
@@ -26,7 +26,7 @@ ENV PATH="/opt/venv/bin:$PATH"
 
 RUN cd dist && ls | grep tar.gz | xargs pip3 install
 
-ENTRYPOINT  ["python3", "-m","lcg"]
+ENTRYPOINT  ["python3", "-m","gcg"]
 
 CMD ["--run"]
 
