@@ -1,5 +1,6 @@
 # Core
 TODO: Add 'lab_name' param to gcg.__main__ controller_gcg_v2 function call.
 TODO: Add the ability to pass the AWS_KEY and AWS_SECRET via the API to the controller_gcg_v2 function.
+TODO: Clean up old routes out of gcg.api.core
 # WebGUI
 
